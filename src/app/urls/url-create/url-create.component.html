@@ -1,0 +1,41 @@
+<div class="container-page">
+  <div *ngIf="formMsg && class" class="{{ class }}">
+    <p>{{ formMsg }}</p>
+  </div>
+  <div>
+    <h3>Create URL</h3>
+  </div>
+
+  <div class="row m-t-10">
+    <div class="col-md-12">
+      <div class="panel">
+        <div class="panel-content">
+          <div class="row">
+            <form [formGroup]="urlForm" (ngSubmit)="onSubmit()" class="col-md-12">
+              <div class="col-md-12">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label> <span>Url Text</span> </label>
+                    <input type="text" class="form-control" formControlName="text" id="text"/>
+                    <small [hidden]="urlForm.controls.text.valid || urlForm.controls.text.untouched" class="text-danger">
+                      <span *ngIf="urlForm.controls.text.errors?.required"> Url Text is required</span>
+                      <span *ngIf="urlForm.controls.text.errors?.pattern"> Invalid Url Text</span>
+                    </small>
+                  </div>
+                </div>
+                <div class="row" style="padding-left: unset">
+                  <div class="col-md-6 form-group pull-left">
+                    <a class="btn btn-primary pull-left" [routerLink]="['/urls']"> Back</a>
+                  </div>
+                  <div class="col-md-6 form-group pull-right">
+                    <input type="button" class="btn btn-primary pull-right" value="Create Url" (click)="onSubmit()"/>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

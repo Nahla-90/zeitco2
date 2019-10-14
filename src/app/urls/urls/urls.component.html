@@ -1,0 +1,66 @@
+<div class="container-page">
+  <div *ngIf="formMsg && class" class="{{ class }}">
+    <p>{{ formMsg }}</p>
+  </div>
+  <div class="row col-md-12 m-b-10">
+    <div class="col-md-6 pull-right"><h3>URLs</h3></div>
+    <div class="col-md-6 pull-right"><a class="btn btn-primary pull-right" [routerLink]="['/urls/create']">Create
+      Url </a></div>
+  </div>
+  <div class="col-md-12">
+    <p-table
+        #dt
+        [value]="urlsTable.records"
+        [paginator]="true"
+        [rows]="urlsTable.limit"
+        [lazy]="true"
+        [totalRecords]="urlsTable.totalRecords"
+        (onLazyLoad)="loadUrlsLazy($event)"
+        sortField="id"
+        [sortOrder]="-1"
+        [resizableColumns]="true"
+        [rowsPerPageOptions]="urlsTable.paginationList"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn class="fit-width">
+            Id
+            <p-sortIcon [field]="'id'" [pSortableColumn]="'id'"></p-sortIcon>
+          </th>
+          <th pResizableColumn>Text</th>
+          <th pResizableColumn>Action</th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-url>
+        <tr>
+          <td class="ui-resizable-column">{{ url.id }}</td>
+          <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input
+                  type="text"
+                  [(ngModel)]="url.text"
+                  (blur)="updateUrl(url)"
+                />
+              </ng-template>
+              <ng-template pTemplate="output">
+                <span>{{ url.text }}</span>
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td class="ui-resizable-column">
+            <input class="btn btn-primary m-r-9" (click)="getUrlStatus(url.id)" value="Get Status">
+            <input class="btn btn-primary" (click)="deleteUrl(url.id)" value="Delete">
+          </td>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        Showing {{ urlsTable.records?.length }} of {{ urlsTable.totalRecords }}
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>

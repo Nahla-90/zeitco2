@@ -1,0 +1,52 @@
+<div class="account">
+  <div class="container">
+    <div class="account-form">
+      <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+        <span><strong>Sign up</strong></span>
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="email" autocomplete="email" [placeholder]="'Email'"/>
+          <span hidden>Email</span>
+          <small [hidden]="registerForm.controls.email.valid || registerForm.controls.email.untouched" class="text-danger" >
+            <span *ngIf="registerForm.controls.email.errors?.required"> Email is required</span>
+            <span *ngIf="registerForm.controls.email.errors?.pattern"> Invalid Email </span>
+            <span *ngIf="registerForm.controls.email.errors?.maxlength"> Email Max Length is 30 chars</span>
+          </small>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="username" autocomplete="username" [placeholder]="'Username'"/>
+          <span hidden>Username</span>
+          <small [hidden]="registerForm.controls.username.valid || registerForm.controls.username.untouched" class="text-danger" >
+            <span *ngIf="registerForm.controls.username.errors?.required">Username is required</span>
+            <span *ngIf="registerForm.controls.username.errors?.maxlength"> Username Max Length is 30 chars</span>
+          </small>
+        </div>
+
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="phone_number" autocomplete="phone_number" [placeholder]="'Phone Number'"/>
+          <span hidden>Phone Number</span>
+          <small [hidden]="registerForm.controls.phone_number.valid || registerForm.controls.phone_number.untouched" class="text-danger" >
+            <span *ngIf="registerForm.controls.phone_number.errors?.required"> Phone number is required</span>
+            <span *ngIf="registerForm.controls.phone_number.errors?.pattern || registerForm.controls.phone_number.errors?.maxlength"> Invalid Phone number </span>
+          </small>
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control form-white password" formControlName="password" autocomplete="password" [placeholder]="'Password'" required/>
+          <span hidden >Password</span>
+          <small [hidden]="registerForm.controls.password.valid || registerForm.controls.password.untouched" class="text-danger" >
+            <span *ngIf="registerForm.controls.password.errors?.required"> Password is required</span>
+            <span *ngIf="registerForm.controls.password.errors?.minlength"> Password Min Length is 6 chars </span>
+            <span *ngIf="registerForm.controls.password.errors?.maxlength"> Password Max Length is 20 chars</span>
+          </small>
+        </div>
+
+        <button class="btn btn-lg btn-dark btn-rounded ladda-button" data-style="expand-left" type="submit" [disabled]="registerForm.controls.invalid ">
+          <i class="fas fa-cog fa-spin"></i> <span >Register</span>
+        </button>
+
+        <div class="form-footer"><div class="clearfix"></div></div>
+      </form>
+    </div>
+  </div>
+</div>

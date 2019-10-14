@@ -1,0 +1,45 @@
+Url Checker (Angular7): http://urlchecker.dev
+
+First : Install virtual host on apache 
+
+ 1- create anew file urlchecker.dev in your vhosts files. 
+ 2- add this code to it.
+  <VirtualHost *:80>
+    ServerName urlchecker.dev
+    ServerAlias urlchecker.dev
+
+    DocumentRoot /var/www/urlchecker/dist/urlchecker
+    <Directory /var/www/urlchecker/dist/urlchecker>
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+    </Directory>
+
+    # uncomment the following lines if you install assets as symlinks
+    # or run into problems when compiling LESS/Sass/CoffeeScript assets
+    # <Directory /var/www/urlchecker>
+    #     Options FollowSymlinks
+    # </Directory>
+
+    ErrorLog /var/log/apache2/urlchecker_error.log
+    CustomLog /var/log/apache2/urlchecker_access.log combined
+</VirtualHost>
+
+3- add vhost name in hosts file in /etc/hosts
+  127.0.0.1   urlchecker.dev
+
+4- restart apache using #service apache2 restart
+ 
+Secound: Install Project ( You should have Angular installed)
+
+1- extract project folder in /var/www
+2- install required modules using #npm install
+3- build project using #sudo ng build
+
+
+
+
+
+
+
+

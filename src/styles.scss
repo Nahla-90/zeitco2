@@ -1,0 +1,126 @@
+/* You can add global styles to this file, and also import other style files */
+html {
+  font-size: 10px;
+  -webkit-tap-highlight-color: transparent;
+  height: 100%;
+}
+body {
+  height: 100%;
+  background: #f5f5f5;
+  color: #5b5b5b;
+  font-family: Lato,'Open Sans',Helvetica,sans-serif !important;
+  line-height: 1.42857143;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  font-size: 14px;
+  margin:0;
+}
+.account {
+  height: auto;
+  min-height: 100%;
+  background: #1f3649;
+  background: radial-gradient(ellipse at center,#1f3649 0,#17253d 44%,#040d11 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@account-color-dark', endColorstr='#040d11', GradientType=1);
+}
+.account .container {
+  height: 100%;
+  margin: auto;
+  position: relative;
+  width: 670px;
+}
+
+.account .account-form {
+  background: #fff;
+  margin-bottom: -15px;
+  margin-top: 50px;
+  display: block;
+  padding: 30px 30px 20px;
+  position: fixed;
+  overflow: hidden;
+}
+.account .account-form {
+  display: table-cell;
+  vertical-align: top;
+  width: 50%;
+}
+span > strong{
+  font-size: 20px;
+  font-family: Lato,'Open Sans',Helvetica,sans-serif;
+  font-weight: 100;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.append-icon {
+  position: relative;
+}
+.form-control.form-white {
+  background-color: #fff;
+  border: 1px solid #ecedee;
+  color: #555;
+}
+.append-icon input {
+  padding-right: 36px;
+}
+.form-control {
+  -webkit-box-shadow: none !important;
+  border: 1px solid #ecedee;
+  box-shadow: none !important;
+  color: #555;
+  display: inline-block;
+  font-size: 13px;
+  height: auto;
+  line-height: normal;
+  padding: 9px 12px 8px;
+  padding-right: 12px;
+  vertical-align: middle;
+  border-radius: 2px;
+  -webkit-transition: .2s ease-out;
+  transition: all .2s ease-out;
+}
+.form-control {
+  line-height: 1.42857143;
+  background-image: none;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.container-page{
+  background-color: white;
+  margin: 20px;
+  height: 100%;
+  padding: 20px;
+}
+.pull-left{
+  float: left;
+}
+.pull-right{
+  float: right;
+}
+.btn-primary{
+  font-size: 14px;
+}
+.error {
+  background-color: #fcc2c2;
+  height: 50px;
+  border-radius: 6px;
+  padding: 15px;
+  font-size: 15px;
+}
+.success {
+  background-color: #c1f4c2;
+  height: 50px;
+  border-radius: 6px;
+  padding: 15px;
+  font-size: 15px;
+}
+.header-content{
+  direction: rtl;
+  margin: 22px;
+}
+.m-b-10{ // margin-bottom-10px
+  margin-bottom: 10px;
+}
+.m-r-9{ // margin-bright-9px
+  margin-right: 9px;
+}
