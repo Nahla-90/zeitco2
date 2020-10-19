@@ -4,7 +4,7 @@ import { Route } from '../app/core';
 
 const routes: Routes = [
   Route.withShell([
-    {path: '', redirectTo: '/urls', pathMatch: 'full'},
+    {path: '', redirectTo: '/restaurants', pathMatch: 'full'},
   ]),
 ];
 

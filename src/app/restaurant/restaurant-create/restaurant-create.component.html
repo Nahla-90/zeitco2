@@ -1,0 +1,249 @@
+<section class="content-header">
+  <div *ngIf="formMsg && class" class="{{ class }}">
+    <p>{{ formMsg }}</p>
+  </div>
+  <h1> Outlet Create </h1>
+  <form [formGroup]="restaurantService.restaurantForm" (ngSubmit)="onSubmit()">
+
+<mk-box>
+  <mk-box-header>Outlet Details</mk-box-header>
+
+  <mk-box-content>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="col-md-4">
+        <label for="nameEn">Outlet Name By English</label>
+        <input id="nameEn" type="text" class="form-control" formControlName="nameEn">
+        <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.nameEn.valid || restaurantService.restaurantForm.controls.nameEn.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.nameEn.errors?.required"> Outlet Name is required</span>
+          <span *ngIf="restaurantService.restaurantForm.controls.nameEn.errors?.maxlength"> Outlet Name max length 20</span>
+        </small></span>
+      </div>
+      <div class="col-md-4">
+        <label for="nameAr">Outlet Name By Arabic</label>
+        <input id="nameAr" type="text" class="form-control" formControlName="nameAr">
+       <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.nameAr.valid || restaurantService.restaurantForm.controls.nameAr.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.nameAr.errors?.required"> Outlet Name is required</span>
+          <span *ngIf="restaurantService.restaurantForm.controls.nameAr.errors?.maxlength"> Outlet Name max length 20</span>
+       </small></span>
+      </div>
+      <div class="col-md-4">
+        <label for="phoneNumber">Phone Number</label>
+        <input id="phoneNumber" type="text" class="form-control" formControlName="phoneNumber">
+       <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.phoneNumber.valid || restaurantService.restaurantForm.controls.phoneNumber.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.phoneNumber.errors?.required"> Phone Number is required</span>
+          <span *ngIf="restaurantService.restaurantForm.controls.phoneNumber.errors?.maxlength"> Phone Number max length 20</span>
+          <span *ngIf="restaurantService.restaurantForm.controls.phoneNumber.errors?.pattern"> Invalid Phone Number</span>
+       </small></span>
+      </div>
+
+      <div class="col-md-4 m-t-5">
+        <label for="outletSpace">Outlet Space</label>
+        <select class="form-control" formControlName="outletSpace">
+          <option value="">Select</option>
+          <option *ngFor="let item of outletSpaces; index as i"
+                  value="{{item}}">{{item}}
+          </option>
+        </select>
+        <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.outletSpace.valid || restaurantService.restaurantForm.controls.outletSpace.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.outletSpace.errors?.required"> Outlet Space is required</span>
+        </small></span>
+      </div>
+
+      <div class="col-md-4 m-t-5">
+        <label for="paymentMethod">Payment Method</label>
+        <select class="form-control" formControlName="paymentMethod" id="paymentMethod">
+          <option value="">Select</option>
+          <option *ngFor="let item of paymentMenthods; index as i"
+                  value="{{item.value}}">{{item.name}}
+          </option>
+        </select>
+        <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.paymentMethod.valid || restaurantService.restaurantForm.controls.paymentMethod.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.paymentMethod.errors?.required"> Payment Method is required</span>
+        </small></span>
+      </div>
+
+      <div class="col-md-4 m-t-5">
+        <label for="estimatedQty">Estimated. Qty</label>
+        <select class="form-control" formControlName="estimatedQty">
+          <option value="">Select</option>
+          <option *ngFor="let item of estimatedQty; index as i"
+                  value="{{item}}">{{item}}
+          </option>
+
+        </select>
+        <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.estimatedQty.valid || restaurantService.restaurantForm.controls.estimatedQty.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.estimatedQty.errors?.required"> Estimated. Qty is required</span>
+        </small></span>
+      </div>
+      <div class="col-md-4 m-t-5">
+        <label for="oilType">Oil Type</label>
+        <select class="form-control" formControlName="oilType" id="oilType">
+          <option value="">Select</option>
+          <option *ngFor="let item of oilTypes; index as i"
+                  value="{{item}}">{{item}}
+          </option>
+
+        </select>
+        <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.oilType.valid || restaurantService.restaurantForm.controls.oilType.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.oilType.errors?.required"> Oil Type is required</span>
+        </small></span>
+      </div>
+      <div class="col-md-4 m-t-5">
+        <label for="class">Class</label>
+        <select class="form-control" formControlName="class">
+          <option value="">Select</option>
+          <option *ngFor="let item of classes; index as i"
+                  value="{{item}}">{{item}}
+          </option>
+        </select>
+        <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.class.valid || restaurantService.restaurantForm.controls.class.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.class.errors?.required"> Class is required</span>
+        </small></span>
+      </div>
+      <div class="col-md-4 m-t-5">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" formControlName="price">
+        <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.price.valid || restaurantService.restaurantForm.controls.price.untouched" class="text-danger">
+          <span *ngIf="restaurantService.restaurantForm.controls.price.errors?.required"> Price is required</span>
+        </small></span>
+        <!--
+            //<p-inputNumber  formControlName="price" mode="currency" currency="EUR" locale="de-DE"></p-inputNumber>
+        -->
+      </div>
+
+
+      <div class="col-md-4 m-t-5">
+        <label for="note">Note</label>
+        <textarea id="note" type="text" rows="4" formControlName="note"></textarea>
+      </div>
+    </div>
+
+
+  </mk-box-content>
+</mk-box>
+    <mk-box>
+      <mk-box-header>Contact Details</mk-box-header>
+
+      <mk-box-content>
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="col-md-6" *ngIf="restaurantId===null">
+            <label for="firstName">First name</label>
+            <input id="firstName" formControlName="firstName" type="text" class="form-control">
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.firstName.valid || restaurantService.restaurantForm.controls.firstName.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.firstName.errors?.required"> First Name is required</span>
+              <span *ngIf="restaurantService.restaurantForm.controls.firstName.errors?.maxlength"> First Name max length 20</span>
+            </small></span>
+          </div>
+          <div class="col-md-6" *ngIf="restaurantId===null">
+            <label for="lastName">Last name</label>
+            <input id="lastName" formControlName="lastName" type="text" class="form-control">
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.lastName.valid || restaurantService.restaurantForm.controls.lastName.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.lastName.errors?.required"> Last Name is required</span>
+              <span *ngIf="restaurantService.restaurantForm.controls.lastName.errors?.maxlength"> Last Name max length 20</span>
+            </small></span>
+          </div>
+          <div class="col-md-4 m-t-5">
+            <label for="contactNo">Contact No</label>
+            <input id="contactNo" formControlName="contactNo" type="text" class="form-control">
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.contactNo.valid || restaurantService.restaurantForm.controls.contactNo.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.contactNo.errors?.required"> Contact No is required</span>
+              <span *ngIf="restaurantService.restaurantForm.controls.contactNo.errors?.maxlength"> Contact No max length 20</span>
+            </small></span>
+          </div>
+          <div class="col-md-4 m-t-5">
+            <label for="email">Email</label>
+            <input id="email" formControlName="email" type="text" class="form-control">
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.email.valid || restaurantService.restaurantForm.controls.email.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.email.errors?.required"> Email is required</span>
+              <span *ngIf="restaurantService.restaurantForm.controls.email.errors?.maxlength"> Email max length 20</span>
+              <span *ngIf="restaurantService.restaurantForm.controls.email.errors?.pattern"> Invalid Email</span>
+
+            </small></span>
+          </div>
+          <div class="col-md-4 m-t-5">
+            <label for="userName">User name</label>
+            <input id="userName" formControlName="userName" type="text" class="form-control">
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.userName.valid || restaurantService.restaurantForm.controls.userName.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.userName.errors?.required"> User Name is required</span>
+              <span *ngIf="restaurantService.restaurantForm.controls.userName.errors?.maxlength"> User Name max length 20</span>
+            </small></span>
+
+          </div>
+          <div class="col-md-6" *ngIf="restaurantId===null">
+            <label for="password">Password</label>
+            <input id="password" formControlName="password" type="text" class="form-control">
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.password.valid || restaurantService.restaurantForm.controls.password.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.password.errors?.required"> Password is required</span>
+              <span *ngIf="restaurantService.restaurantForm.controls.password.errors?.maxlength"> Password max length 20</span>
+            </small></span>
+
+          </div>
+          <div class="col-md-6" *ngIf="restaurantId===null">
+            <label for="cpassword">Confirm Password</label>
+            <input id="cpassword" formControlName="confirmPassword" type="text" class="form-control">
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.confirmPassword.valid || restaurantService.restaurantForm.controls.confirmPassword.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.confirmPassword.errors?.required"> Confirm Password is required</span>
+                         <span *ngIf="restaurantService.restaurantForm.controls.confirmPassword.errors?.notEqualPassword"> Confirm Password isn't equal password</span>
+            </small></span>
+          </div>
+          <div class="col-md-4 m-t-5">
+            <label for="title">Job Title</label>
+            <select class="form-control" formControlName="title">
+              <option value="">Select</option>
+              <option *ngFor="let title of titles; index as i"
+                      value="{{title}}">{{title}}
+              </option>
+            </select>
+
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.title.valid || restaurantService.restaurantForm.controls.title.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.title.errors?.required"> Title is required</span>
+            </small></span>
+          </div>
+          <div class="col-md-4 m-t-5">
+            <label for="city">City</label>
+            <select class="form-control" formControlName="city" (change)="restaurantService.loadAreas()">
+              <option value="">Select</option>
+              <option *ngFor="let city of restaurantService.cities; index as i"
+                      value="{{city.id}}">{{city.cityName}}
+              </option>
+            </select>
+
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.city.valid || restaurantService.restaurantForm.controls.city.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.city.errors?.required"> City is required</span>
+            </small></span>
+          </div>
+          <div class="col-md-4 m-t-5">
+            <label for="area">Area</label>
+            <select class="form-control" formControlName="area">
+              <option value="">Select</option>
+              <option *ngFor="let area of restaurantService.areas; index as i"
+                      value="{{area.id}}">{{area.areaName}}
+              </option>
+            </select>
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.area.valid || restaurantService.restaurantForm.controls.area.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.area.errors?.required"> Area is required</span>
+            </small></span>
+          </div>
+          <div class="col-md-4 m-t-5">
+            <label for="address">Address</label>
+            <input id="address" formControlName="address" type="text" class="form-control">
+            <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.address.valid || restaurantService.restaurantForm.controls.address.untouched" class="text-danger">
+              <span *ngIf="restaurantService.restaurantForm.controls.address.errors?.required"> Address is required</span>
+            </small></span>
+          </div>
+        </div>
+
+      </mk-box-content>
+    </mk-box>
+
+    <div class="row">
+      <div class="col-md-6 form-group pull-left">
+        <a class="btn btn-primary pull-left" [routerLink]="['/restaurants']"> Back</a>
+      </div>
+      <div class="col-md-6 form-group pull-right">
+        <input type="submit" class="btn btn-primary pull-right" value="Save"/>
+      </div>
+    </div>
+
+  </form>
+</section>

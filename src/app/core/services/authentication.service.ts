@@ -14,12 +14,12 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>('/api/v1/login', {username: username, password: password}).pipe(
+    return this.http.post<any>('/api/v1/signin', {username: username, password: password}).pipe(
       map((res: any) => {
         /* login successful if there's a token in the response */
         if (res && res.token) {
           /* store username and token in local storage to keep user logged in between page refreshes*/
-          localStorage.setItem('currentUser', JSON.stringify({username: username, token: res.token}));
+          localStorage.setItem('currentUser', JSON.stringify({username: username, token: res.token, user: res.user}));
         }
       })
     );

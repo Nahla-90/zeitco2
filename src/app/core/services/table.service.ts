@@ -8,7 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class TableService {
   public records: any[] = [];
   public offset = 0;
-  public limit = 2;
+  public limit = 10;
   public sortField = 'id';
   public sortOrder = 'ASC';
   public filters: object = {};

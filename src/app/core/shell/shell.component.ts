@@ -8,10 +8,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent {
+  public user: string;
+
   constructor(
     public router: Router,
     private authenticationService: AuthenticationService
   ) {
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+
   }
 
   /* Logout User Then redirect to login page */

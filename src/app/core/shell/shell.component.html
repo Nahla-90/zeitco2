@@ -1,24 +1,34 @@
-<div class="main-content">
-  <!-- BEGIN PAGE CONTENT -->
-  <div class="page-content">
-    <div class="row header-content">
-      <a (click)="logout($event)" href="javascript:void(0);" class="btn btn-primary"><span>Logout</span></a>
-    </div>
-    <router-outlet></router-outlet>
-    <div class="footer">
-      <div class="copyright">
-        <p class="pull-left sm-pull-reset">
-          <span>Copyright <span class="copyright">©</span> 2016 </span> <span>urlchecker.dev</span>.
-          <span>All rights reserved. </span>
-        </p>
-        <p class="pull-right sm-pull-reset">
-          <span
-            ><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> |
-            <a href="#" class="m-l-10">Privacy Policy</a></span>
-        </p>
+<mk-layout-wrapper>
+
+  <mk-layout-header [isSidebarLeftToggle]="true" [isSidebarRightToggle]="false" [logoLink]="['/', 'boxs', 'info-box']">
+    <mk-layout-header-logo><b>Admin</b>LTE</mk-layout-header-logo>
+    <mk-layout-header-logo-mini><b>A</b>LT</mk-layout-header-logo-mini>
+
+    <div class="navbar navbar-static-top pull-right">
+      <a class="btn btn-primary logoutBtn" (click)="logout($event)">Logout</a></div>
+  </mk-layout-header>
+
+  <mk-layout-sidebar-left>
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="assets/avatar.jpg" class="img-circle" alt="User Image">
+      </div>
+      <div class="pull-left info">
+        <p>{{user.username}}</p>
       </div>
     </div>
-  </div>
-  <!-- END PAGE CONTENT -->
-</div>
-<!-- END MAIN CONTENT -->
+
+  </mk-layout-sidebar-left>
+
+  <mk-layout-content>
+    <router-outlet></router-outlet>
+  </mk-layout-content>
+  <mk-layout-footer>
+    <mk-layout-footer-left>
+      Footer left HTML
+    </mk-layout-footer-left>
+    <mk-layout-footer-right>
+      Footer right HTML
+    </mk-layout-footer-right>
+  </mk-layout-footer>
+</mk-layout-wrapper>

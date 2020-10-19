@@ -11,9 +11,22 @@ import {ShellComponent} from './shell/shell.component';
 import {RouteReusableStrategy} from './route-reusable-strategy';
 import {AuthenticationService} from './services/authentication.service';
 import {AuthenticationGuard} from './services/authentication.guard';
+import {LayoutModule} from 'angular-admin-lte';   //Import the layout module.
+export var adminLteConf = {
+  skin: 'blue',
+  sidebarLeftMenu: [
+    {label: 'MAIN NAVIGATION', separator: true},
+    // {label: 'Restaurants', route: '/restaurants', iconClasses: 'fa fa-th'}
+    {
+      label: 'Restaurants', iconClasses: 'fa fa-files-o', children: [
+        {label: 'Approved', route: '/restaurants'}
+      ]
+    }
+  ]
+};
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule, RouterModule],
+  imports: [CommonModule, HttpClientModule, RouterModule, LayoutModule.forRoot(adminLteConf)],
   declarations: [ShellComponent],
   exports: [
     ShellComponent

@@ -1,0 +1,87 @@
+<section class="content-header">
+  <h1> Outlet View </h1>
+  <mk-box>
+    <mk-box-header>Outlet Details</mk-box-header>
+
+    <mk-box-content>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="col-md-4">
+          <label>Outlet Name By English : :  </label> {{restaurantService.restaurant.nameEn}}
+        </div>
+        <div class="col-md-4">
+          <label>Outlet Name By Arabic:  </label> {{restaurantService.restaurant.nameAr}}
+        </div>
+        <div class="col-md-4">
+          <label>Phone Number:  </label> {{restaurantService.restaurant.phoneNumber}}
+        </div>
+
+        <div class="col-md-4 m-t-5">
+          <label>Outlet Space:  </label> {{restaurantService.restaurant.outletSpace}}
+        </div>
+
+        <div class="col-md-4 m-t-5">
+          <label>Payment Method:  </label> {{restaurantService.restaurant.paymentMethod}}
+        </div>
+
+        <div class="col-md-4 m-t-5">
+          <label>Estimated. Qty:  </label> {{restaurantService.restaurant.estimatedQty}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Oil Type:  </label> {{restaurantService.restaurant.oilType}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Class:  </label> {{restaurantService.restaurant.class}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Price:  </label> {{restaurantService.restaurant.price}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Note:  </label> {{restaurantService.restaurant.note}}
+        </div>
+      </div>
+
+
+    </mk-box-content>
+  </mk-box>
+  <mk-box>
+    <mk-box-header>Contact Details</mk-box-header>
+
+    <mk-box-content>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="col-md-6">
+          <label>First name:  </label> {{restaurantService.restaurant.firstName}}
+        </div>
+        <div class="col-md-6">
+          <label>Last name:  </label> {{restaurantService.restaurant.lastName}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Contact No:  </label> {{restaurantService.restaurant.contactNo}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Email:  </label> {{restaurantService.restaurant.email}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>User name:  </label> {{restaurantService.restaurant.userName}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Job Title:  </label> {{restaurantService.restaurant.title}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>City:  </label> {{restaurantService.restaurant.cityName}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Area:  </label> {{restaurantService.restaurant.areaName}}
+        </div>
+        <div class="col-md-4 m-t-5">
+          <label>Address:  </label> {{restaurantService.restaurant.address}}
+        </div>
+      </div>
+
+    </mk-box-content>
+  </mk-box>
+  <div class="row">
+    <div class="col-md-6 form-group pull-left">
+      <a class="btn btn-primary pull-left" [routerLink]="['/restaurants']"> Back</a>
+    </div>
+  </div>
+</section>

@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
       username: ['', [Validators.required, Validators.maxLength(30)]],
-      phone_number: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
+      phone_number: ['', [Validators.required, Validators.maxLength(1), Validators.pattern('^[0-9]\\d+$')]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
     });
   }

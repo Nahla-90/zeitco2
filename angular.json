@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "urlchecker": {
+    "zeitco": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/urlchecker",
+            "outputPath": "dist/zeitco",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -47,10 +47,22 @@
               "src/.htaccess"
             ],
             "styles": [
+              "node_modules/bootstrap-css-only/css/bootstrap.min.css",
+              "node_modules/font-awesome/css/font-awesome.css", // optional
+              "node_modules/admin-lte-css/dist/css/AdminLTE.css",
+              "node_modules/admin-lte-css/dist/css/skins/_all-skins.css",
+              "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
+             // "src/assets/plugins/fontawesome-free/css/all.min.css",
+              //"https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css",
+              //"src/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
+              //"src/assets/dist/css/adminlte.min.css",
+             // "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700",
+             /* "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",*/
               "src/styles.scss"
             ],
             "scripts": []
@@ -85,18 +97,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "urlchecker:build"
+            "browserTarget": "zeitco:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "urlchecker:build:production"
+              "browserTarget": "zeitco:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "urlchecker:build"
+            "browserTarget": "zeitco:build"
           }
         },
         "test": {
@@ -107,6 +119,17 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              "node_modules/bootstrap-css-only/css/bootstrap.min.css",
+              "node_modules/font-awesome/css/font-awesome.css", // optional
+              "node_modules/admin-lte-css/dist/css/AdminLTE.css",
+              "node_modules/admin-lte-css/dist/css/skins/_all-skins.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+             // "src/assets/plugins/fontawesome-free/css/all.min.css",
+              //"https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css",
+              //"src/assets/plugins/icheck-bootstrap/icheck-bo/otstrap.min.css",
+              //"src/assets/dist/css/adminlte.min.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -130,7 +153,7 @@
         }
       }
     },
-    "urlchecker-e2e": {
+    "zeitco-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -139,11 +162,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "urlchecker:serve"
+            "devServerTarget": "zeitco:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "urlchecker:serve:production"
+              "devServerTarget": "zeitco:serve:production"
             }
           }
         },
@@ -159,5 +182,5 @@
       }
     }
   },
-  "defaultProject": "urlchecker"
+  "defaultProject": "zeitco"
 }

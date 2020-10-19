@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CoreModule} from '../app/core/core.module';
 import {LoginModule} from '../app/login/login.module';
 import {UrlsModule} from '../app/urls/urls.module';
+import {RestaurantModule} from '../app/restaurant/restaurant.module';
 import {RegisterModule} from './register/register.module';
 
 @NgModule({
@@ -18,6 +19,7 @@ import {RegisterModule} from './register/register.module';
     CoreModule,
     LoginModule,
     UrlsModule,
+    RestaurantModule,
     RegisterModule,
     BrowserAnimationsModule
   ],

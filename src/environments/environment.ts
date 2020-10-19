@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'http://urlcheckerapi.dev',
+  serverUrl: 'https://zeitco.herokuapp.com',
 };
 
 /*

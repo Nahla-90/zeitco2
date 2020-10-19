@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            this.router.navigate(['/urls'], {queryParams: {}});
+            this.router.navigate(['/restaurants'], {queryParams: {}});
           },
           error => {
             this.error = error;
