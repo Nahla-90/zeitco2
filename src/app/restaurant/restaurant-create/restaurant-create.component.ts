@@ -16,7 +16,7 @@ import {RestaurantService} from '@app/core/services/restaurant.service';
 export class RestaurantCreateComponent {
   private _routeListener: any;
   public restaurantService: RestaurantService = new RestaurantService(this.httpClient, this.formBuilder);
-
+  public loading = false;
   public user;
   public status;
   public formMsg = '';
@@ -30,7 +30,7 @@ export class RestaurantCreateComponent {
   public oilTypes = ['Canola', 'Sunflower', 'Palm', 'Olive'];
   public estimatedQty = ['0 - 50', '50 - 100', '100 - 150', '150 - 200', '200+'];
   public classes = ['CLASS-A', 'CLASS-B', 'CLASS-C'];
-  public titles = ['owner','operator','manager'];
+  public titles = ['owner', 'operator', 'manager'];
   public restaurantId = null;
 
   constructor(private httpClient: HttpClient, private formBuilder: FormBuilder, private _activeRoute: ActivatedRoute,
@@ -43,7 +43,7 @@ export class RestaurantCreateComponent {
         if (qParams.operation === 'update') {
           this.restaurantService.loadRestaurantById(qParams.id);
           this.restaurantId = qParams.id;
-        }else{
+        } else {
           this.restaurantId = null;
         }
       });
@@ -93,6 +93,7 @@ export class RestaurantCreateComponent {
 
   /* When Form submitted*/
   onSubmit() {
+    this.loading = true;
     if (this.restaurantService.restaurantForm.valid) {
 
       const branches = JSON.stringify([{
@@ -103,52 +104,100 @@ export class RestaurantCreateComponent {
       }
       ]);
 
-      var params = {
-        restaurantName: this.restaurantService.restaurantForm.controls['nameEn'].value,
-        average: this.restaurantService.restaurantForm.controls['estimatedQty'].value,
-        price: this.restaurantService.restaurantForm.controls['price'].value,
-        space: this.restaurantService.restaurantForm.controls['outletSpace'].value,
-        address: this.restaurantService.restaurantForm.controls['address'].value,
-        branchesNumber: 1,
-        firstName: this.restaurantService.restaurantForm.controls['firstName'].value,
-        lastName: this.restaurantService.restaurantForm.controls['lastName'].value,
-        phone: this.restaurantService.restaurantForm.controls['contactNo'].value,
-        outletPhoneNumber: this.restaurantService.restaurantForm.controls['phoneNumber'].value,
-        status: this.status,
-        director: this.user.user.id,
-        branches: branches,
-        email: this.restaurantService.restaurantForm.controls['email'].value,
-        type: this.user.user.type,
-        password: this.restaurantService.restaurantForm.controls['password'].value,
-        title: this.restaurantService.restaurantForm.controls['title'].value,
-        username: this.restaurantService.restaurantForm.controls['userName'].value,
-        oilType: this.restaurantService.restaurantForm.controls['oilType'].value,
-        payType: this.restaurantService.restaurantForm.controls['paymentMethod'].value,
-        restaurantName_ar: this.restaurantService.restaurantForm.controls['nameAr'].value,
-        class: this.restaurantService.restaurantForm.controls['class'].value,
-        note: this.restaurantService.restaurantForm.controls['note'].value,
-      };
-
-
       if (this.restaurantId !== null) {
-        const result = this.httpClient.put<any[]>('/api/v1/restaurant/', this.restaurantId).subscribe(resultData => {
+        let params = {
+          restaurantName: this.restaurantService.restaurantForm.controls['nameEn'].value,
+          average: this.restaurantService.restaurantForm.controls['estimatedQty'].value,
+          price: this.restaurantService.restaurantForm.controls['price'].value,
+          space: this.restaurantService.restaurantForm.controls['outletSpace'].value,
+          address: this.restaurantService.restaurantForm.controls['address'].value,
+          branchesNumber: 1,
+          // firstName: this.restaurantService.restaurantForm.controls['firstName'].value,
+          //  lastName: this.restaurantService.restaurantForm.controls['lastName'].value,
+          phone: this.restaurantService.restaurantForm.controls['contactNo'].value,
+          outletPhoneNumber: this.restaurantService.restaurantForm.controls['phoneNumber'].value,
+          status: this.status,
+          director: this.user.user.id,
+          branches: branches,
+          email: this.restaurantService.restaurantForm.controls['email'].value,
+          type: this.user.user.type,
+          //password: this.restaurantService.restaurantForm.controls['password'].value,
+          title: this.restaurantService.restaurantForm.controls['title'].value,
+          username: this.restaurantService.restaurantForm.controls['userName'].value,
+          oilType: this.restaurantService.restaurantForm.controls['oilType'].value,
+          payType: this.restaurantService.restaurantForm.controls['paymentMethod'].value,
+          restaurantName_ar: this.restaurantService.restaurantForm.controls['nameAr'].value,
+          class: this.restaurantService.restaurantForm.controls['class'].value,
+          note: this.restaurantService.restaurantForm.controls['note'].value,
+        };
+        const result = this.httpClient.put<any[]>('/api/v1/restaurant/' + this.restaurantId, params).subscribe(resultData => {
           if (resultData['id']) {
             this.formMsg = 'Restaurant updated successfuly';
             this.class = 'success';
+            this.loading = false;
+
           } else {
-            this.formMsg = 'Sorry, Something went wrong!!!';
+            alert('1');
+            this.formMsg = resultData['errors'][0]['msg'];
             this.class = 'error';
+            this.loading = false;
+
           }
+        }, (resultData) => {
+
+          this.formMsg = resultData['error']['errors'][0]['msg'];
+          this.class = 'error';
+          this.loading = false;
+
+        }, () => {
+
         });
       } else {
+        let params = {
+          restaurantName: this.restaurantService.restaurantForm.controls['nameEn'].value,
+          average: this.restaurantService.restaurantForm.controls['estimatedQty'].value,
+          price: this.restaurantService.restaurantForm.controls['price'].value,
+          space: this.restaurantService.restaurantForm.controls['outletSpace'].value,
+          address: this.restaurantService.restaurantForm.controls['address'].value,
+          branchesNumber: 1,
+          firstName: this.restaurantService.restaurantForm.controls['firstName'].value,
+          lastName: this.restaurantService.restaurantForm.controls['lastName'].value,
+          phone: this.restaurantService.restaurantForm.controls['contactNo'].value,
+          outletPhoneNumber: this.restaurantService.restaurantForm.controls['phoneNumber'].value,
+          status: this.status,
+          director: this.user.user.id,
+          branches: branches,
+          email: this.restaurantService.restaurantForm.controls['email'].value,
+          type: this.user.user.type,
+          password: this.restaurantService.restaurantForm.controls['password'].value,
+          title: this.restaurantService.restaurantForm.controls['title'].value,
+          username: this.restaurantService.restaurantForm.controls['userName'].value,
+          oilType: this.restaurantService.restaurantForm.controls['oilType'].value,
+          payType: this.restaurantService.restaurantForm.controls['paymentMethod'].value,
+          restaurantName_ar: this.restaurantService.restaurantForm.controls['nameAr'].value,
+          class: this.restaurantService.restaurantForm.controls['class'].value,
+          note: this.restaurantService.restaurantForm.controls['note'].value,
+        };
         const result = this.httpClient.post<any[]>('/api/v1/restaurant', params).subscribe(resultData => {
           if (resultData['id']) {
             this.formMsg = 'Restaurant created successfuly';
             this.class = 'success';
+            this.router.navigate(['/restaurants']);
+
           } else {
             this.formMsg = 'Sorry, Something went wrong!!!';
             this.class = 'error';
+            this.loading = false;
+
           }
+        }, (resultData) => {
+          this.formMsg = resultData['error']['errors'][0]['msg'];
+          this.class = 'error';
+          this.loading = false;
+
+        }, () => {
+          this.loading = false;
+
         });
       }
 
@@ -159,6 +208,7 @@ export class RestaurantCreateComponent {
         const control = this.restaurantService.restaurantForm.get(field);
         control.markAsTouched({onlySelf: true});
       });
+      this.loading = false;
     }
   }
 }

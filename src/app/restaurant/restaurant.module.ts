@@ -12,6 +12,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {RouterModule, Routes} from '@angular/router';
 import {Route} from '@app/core';
 import {BoxModule, BoxInfoModule, BreadcrumbsModule} from 'angular-admin-lte';       //Box component
+import {DialogModule} from 'primeng/dialog';
 
 const routes: Routes = [
   Route.withShell([
@@ -36,7 +37,8 @@ const routes: Routes = [
     BoxInfoModule,
     ButtonModule,
     DropdownModule,
-    BreadcrumbsModule
+    BreadcrumbsModule,
+    DialogModule
     // InputNumberModule
   ],
   providers: []

@@ -12,4 +12,26 @@
 .img-circle {
   border-radius: 50%;
 }
-
+.success {
+  background-color: #c1f4c2;
+  height: 50px;
+  border-radius: 6px;
+  padding: 15px;
+  font-size: 15px;
+}
+div.error {
+  background-color: #fcc2c2;
+  height: 50px;
+  border-radius: 6px;
+  padding: 15px;
+  font-size: 15px;
+}
+.header-text{
+  margin: 20px 5px !important;
+}
+body{
+  background-color: #ecf0f5;
+}
+.mb-3, .my-3 {
+  margin-bottom: 3px !important;
+}

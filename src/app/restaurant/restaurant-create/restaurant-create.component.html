@@ -2,7 +2,7 @@
   <div *ngIf="formMsg && class" class="{{ class }}">
     <p>{{ formMsg }}</p>
   </div>
-  <h1> Outlet Create </h1>
+  <h1 class="header-text"> Outlet Create </h1>
   <form [formGroup]="restaurantService.restaurantForm" (ngSubmit)="onSubmit()">
 
 <mk-box>
@@ -241,8 +241,11 @@
         <a class="btn btn-primary pull-left" [routerLink]="['/restaurants']"> Back</a>
       </div>
       <div class="col-md-6 form-group pull-right">
-        <input type="submit" class="btn btn-primary pull-right" value="Save"/>
+        <input type="submit" class="btn btn-primary pull-right"  [value]="!loading?'Save':'Loading...'" [disabled]="loading"/>
       </div>
+     <!-- <div class="col-md-6 form-group pull-right" *ngIf="loading==true">
+        <input type="submit" class="btn btn-primary pull-right" value="Loading..." disabled/>
+      </div>-->
     </div>
 
   </form>

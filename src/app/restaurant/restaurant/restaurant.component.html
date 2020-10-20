@@ -1,95 +1,115 @@
 <!--
 //<mk-box header="Restaurants">
 -->
-  <mk-box [isRemovable]="false" [isCollapsable]="false">
-    <mk-box-header>Restaurants</mk-box-header>
+<div *ngIf="formMsg && class" class="{{ class }}">
+  <p>{{ formMsg }}</p>
+</div>
+<mk-box [isRemovable]="false" [isCollapsable]="false">
+  <mk-box-header>Restaurants</mk-box-header>
   <mk-box-tools><a class="btn btn-primary pull-right" [routerLink]="['/restaurants/create']">Create
     Restaurant </a></mk-box-tools>
-    <mk-box-content>
+  <mk-box-content>
 
-  <!--<p-table [value]="restaurantTable.records" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Name</th>
-        <th>Country</th>
-        <th>Company</th>
-        <th>Representative</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-customer>
-      <tr>
-        <td>{{customer.id}}</td>
-        <td>{{customer.id}}</td>
-        <td>{{customer.id}}</td>
-        <td>{{customer.id}}</td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="paginatorleft">
-      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-    </ng-template>
-    <ng-template pTemplate="paginatorright">
-      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-    </ng-template>
-  </p-table>-->
-
-
+    <!--<p-table [value]="restaurantTable.records" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Country</th>
+          <th>Company</th>
+          <th>Representative</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customer>
+        <tr>
+          <td>{{customer.id}}</td>
+          <td>{{customer.id}}</td>
+          <td>{{customer.id}}</td>
+          <td>{{customer.id}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>
+    </p-table>-->
 
 
+    <p-table
+      #dt
+      [value]="restaurantTable.records"
+      [paginator]="true"
+      [lazy]="false"
+      [rows]="restaurantTable.limit"
+      sortField="id"
+      [sortOrder]="-1"
+      [resizableColumns]="true"
+      [rowsPerPageOptions]="restaurantTable.paginationList"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn class="fit-width">
+            Id
+            <p-sortIcon [field]="'id'" [pSortableColumn]="'id'"></p-sortIcon>
+          </th>
+          <th pResizableColumn>RestaurantName Ar</th>
+          <th pResizableColumn>Title</th>
+          <th pResizableColumn>Oil Type</th>
+          <th pResizableColumn>Pay Type</th>
+          <th pResizableColumn class="w-200">Action</th>
 
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-restaurant>
+        <tr>
+          <td class="ui-resizable-column">{{ restaurant.id }}</td>
+          <td>{{restaurant.restaurantName_ar}}</td>
+          <td>{{restaurant.title}}</td>
+          <td>{{restaurant.oilType}}</td>
+          <td>{{restaurant.payType}}</td>
+          <td class="ui-resizable-column" >
+            <a class="btn btn-primary mr-sm-1" routerLink="/restaurants/{{ restaurant.id }}/update">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a class="btn btn-success mr-sm-1" routerLink="/restaurants/{{ restaurant.id }}/view">
+              <i class="fa fa-eye"></i>
+            </a>
+            <a class="btn btn-danger" (click)="declineRestaurant(restaurant.id)">
+              Decline
+            </a>
+          </td>
 
-
-
-
-
-
-
-
-
-
-  <p-table
-    #dt
-    [value]="restaurantTable.records"
-    [paginator]="true"
-    [lazy]="false"
-    [rows]="restaurantTable.limit"
-    sortField="id"
-    [sortOrder]="-1"
-    [resizableColumns]="true"
-    [rowsPerPageOptions]="restaurantTable.paginationList"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th pResizableColumn class="fit-width">
-          Id
-          <p-sortIcon [field]="'id'" [pSortableColumn]="'id'"></p-sortIcon>
-        </th>
-        <th pResizableColumn>RestaurantName Ar</th>
-        <th pResizableColumn>Title</th>
-        <th pResizableColumn>Oil Type</th>
-        <th pResizableColumn>Pay Type</th>
-        <th pResizableColumn>Action</th>
-
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-restaurant>
-      <tr>
-        <td class="ui-resizable-column">{{ restaurant.id }}</td>
-        <td>{{restaurant.restaurantName_ar}}</td>
-        <td>{{restaurant.title}}</td>
-        <td>{{restaurant.oilType}}</td>
-        <td>{{restaurant.payType}}</td>
-        <td class="ui-resizable-column">
-          <a class="btn btn-primary" routerLink="/restaurants/{{ restaurant.id }}/update">
-            <i class="fa fa-edit"></i>
-          </a>
-          <a class="btn btn-danger" routerLink="/restaurants/{{ restaurant.id }}/view">
-            <i class="fa fa-eye"></i>
-          </a>
-        </td>
-
-      </tr>
-    </ng-template>
-  </p-table>
-    </mk-box-content>
+        </tr>
+      </ng-template>
+    </p-table>
+  </mk-box-content>
 </mk-box>
+<!--<p-dialog header="Decline Reason" [(visible)]="display" [style]="{width: '400px', height: '300px'}" [modal]="true" [minY]="70"
+          [maximizable]="true" [baseZIndex]="10000" moveon>
+  <textarea [(ngModel)]="declineReason"></textarea>
+  <p-footer>
+    <a class="btn btn-danger" (click)="declineSubmitReason()">
+      Decline
+    </a>
+  </p-footer>
+</p-dialog>-->
+<div id="myModal" class="modal" style="display: block" [style.display]="display? 'block' : 'none'">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <label>Decline Reason : </label>
+    <textarea [(ngModel)]="declineReason" class="mb-sm-1"></textarea>
+    <div>
+      <a class="btn btn-success float-right" (click)="declineSubmitReason()">
+        Decline
+      </a>
+      <a class="btn btn-success float-left" (click)="display=false">
+        Cancel
+      </a>
+    </div>
+
+  </div>
+
+</div>

@@ -1,11 +1,11 @@
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <b>Zeitco Admin</b>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Sign in </p>
 
       <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
         <div class="alert alert-danger" [hidden]="!error || loading">Username or password incorrect.</div>
@@ -13,35 +13,29 @@
           <input type="text" class="form-control" formControlName="username" autocomplete="username" [placeholder]="'Username'"/>
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fa fa-envelope"></span>
             </div>
           </div>
-          <small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched" class="text-danger">
-            Username is required
-          </small>
+
         </div>
+        <small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched" class="text-danger">
+          Username is required
+        </small>
         <div class="input-group mb-3">
           <input type="password" class="form-control form-white password" formControlName="password"
                  autocomplete="current-password" [placeholder]="'Password'" required/>
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <span class="fa fa-lock"></span>
             </div>
 
           </div>
-          <small [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched" class="text-danger">
-            Password is required
-          </small>
+
         </div>
+        <small [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched" class="text-danger">
+          Password is required
+        </small>
         <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.controls.invalid || loading">Sign In</button>
