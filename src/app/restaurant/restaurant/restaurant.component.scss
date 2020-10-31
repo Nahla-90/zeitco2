@@ -1,5 +1,5 @@
-.w-200{
-  width: 226px;
+.w-270{
+  width: 270px;
 }
 /* The Modal (background) */
 .modal {
@@ -23,6 +23,13 @@
   border: 1px solid #888;
   width: 50%; /* Could be more or less, depending on screen size */
 }
+.assign-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
 
 /* The Close Button */
 .close {
@@ -37,4 +44,30 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+.sign{
+  font-size: x-large;
+}
+.fa-check{
+  color: limegreen;
+}
+.fa-times{
+  color: red;
+}
+.table-btn{
+  color: white !important;
+  font-size: small !important;
+}
+a{
+  color:white;
+}
+span.error{
+  height: 21px;
+  display: block;
+}
+a:not([href]):hover {
+  color: white !important;
+}
+.error-message{
+  color: red;
 }

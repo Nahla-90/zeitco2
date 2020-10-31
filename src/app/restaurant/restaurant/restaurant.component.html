@@ -1,52 +1,28 @@
 <!--
 //<mk-box header="Restaurants">
 -->
-<div *ngIf="formMsg && class" class="{{ class }}">
+<div *ngIf="formMsg && class" class="{{ class }} mb-sm-2">
   <p>{{ formMsg }}</p>
 </div>
 <mk-box [isRemovable]="false" [isCollapsable]="false">
-  <mk-box-header>Restaurants</mk-box-header>
-  <mk-box-tools><a class="btn btn-primary pull-right" [routerLink]="['/restaurants/create']">Create
-    Restaurant </a></mk-box-tools>
+  <mk-box-header class="text-capitalize">{{status}} Outlets</mk-box-header>
+  <mk-box-tools><a class="btn btn-primary pull-right" [routerLink]="['/outlets/create']">Create
+    Outlet </a></mk-box-tools>
   <mk-box-content>
-
-    <!--<p-table [value]="restaurantTable.records" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Name</th>
-          <th>Country</th>
-          <th>Company</th>
-          <th>Representative</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-customer>
-        <tr>
-          <td>{{customer.id}}</td>
-          <td>{{customer.id}}</td>
-          <td>{{customer.id}}</td>
-          <td>{{customer.id}}</td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-      </ng-template>
-      <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-      </ng-template>
-    </p-table>-->
-
 
     <p-table
       #dt
       [value]="restaurantTable.records"
       [paginator]="true"
-      [lazy]="false"
+      [lazy]="true"
       [rows]="restaurantTable.limit"
+      [totalRecords]="restaurantTable.totalRecords"
       sortField="id"
       [sortOrder]="-1"
       [resizableColumns]="true"
       [rowsPerPageOptions]="restaurantTable.paginationList"
+      (onLazyLoad)="loadRestaurantsLazy($event)"
+
     >
       <ng-template pTemplate="header">
         <tr>
@@ -54,11 +30,19 @@
             Id
             <p-sortIcon [field]="'id'" [pSortableColumn]="'id'"></p-sortIcon>
           </th>
-          <th pResizableColumn>RestaurantName Ar</th>
+          <th pResizableColumn>Name Ar</th>
           <th pResizableColumn>Title</th>
           <th pResizableColumn>Oil Type</th>
           <th pResizableColumn>Pay Type</th>
-          <th pResizableColumn class="w-200">Action</th>
+          <th pResizableColumn>No Oil
+          <select [(ngModel)]="noOil" (change)="load()">
+            <option value="null">All</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+          </th>
+          <th pResizableColumn>Agreement</th>
+          <th pResizableColumn class="w-270">Action</th>
 
         </tr>
       </ng-template>
@@ -69,15 +53,28 @@
           <td>{{restaurant.title}}</td>
           <td>{{restaurant.oilType}}</td>
           <td>{{restaurant.payType}}</td>
+          <td>
+            <i *ngIf="restaurant.noOil" class="sign fa fa-check"></i>
+            <i *ngIf="!restaurant.noOil" class="sign fa fa-times"></i>
+          </td>
+          <td>
+            {{restaurant.Agreement}}
+          </td>
           <td class="ui-resizable-column" >
-            <a class="btn btn-primary mr-sm-1" routerLink="/restaurants/{{ restaurant.id }}/update">
+            <a class="table-btn btn btn-primary mr-sm-1" routerLink="/outlets/{{ restaurant.id }}/update">
               <i class="fa fa-edit"></i>
             </a>
-            <a class="btn btn-success mr-sm-1" routerLink="/restaurants/{{ restaurant.id }}/view">
+            <a class="table-btn btn btn-success mr-sm-1" routerLink="/outlets/{{ restaurant.id }}/view">
               <i class="fa fa-eye"></i>
             </a>
-            <a class="btn btn-danger" (click)="declineRestaurant(restaurant.id)">
+            <a *ngIf="status==='APPROVED'||status==='PURCHASING-ACCOUNT'" class="table-btn btn btn-danger mr-sm-1" (click)="declineRestaurant(restaurant.id)">
               Decline
+            </a>
+            <a *ngIf="status==='SURVEY-ACCOUNT'||status==='RESTURANT-ACCOUNT'" class="table-btn btn bg-maroon" (click)="assignPurchaser(restaurant.id)">
+              Assign To Purchaser
+            </a>
+            <a *ngIf="status==='PURCHASING-ACCOUNT'" class="table-btn btn btn-info" (click)="approveRestaurant(restaurant.id)">
+              Approved
             </a>
           </td>
 
@@ -86,29 +83,83 @@
     </p-table>
   </mk-box-content>
 </mk-box>
-<!--<p-dialog header="Decline Reason" [(visible)]="display" [style]="{width: '400px', height: '300px'}" [modal]="true" [minY]="70"
-          [maximizable]="true" [baseZIndex]="10000" moveon>
-  <textarea [(ngModel)]="declineReason"></textarea>
-  <p-footer>
-    <a class="btn btn-danger" (click)="declineSubmitReason()">
-      Decline
-    </a>
-  </p-footer>
-</p-dialog>-->
-<div id="myModal" class="modal" style="display: block" [style.display]="display? 'block' : 'none'">
+
+
+<div id="myModal" class="modal" style="display: block" [style.display]="modal.display? 'block' : 'none'">
 
   <!-- Modal content -->
-  <div class="modal-content">
-    <label>Decline Reason : </label>
-    <textarea [(ngModel)]="declineReason" class="mb-sm-1"></textarea>
+  <div *ngIf="modal.type==='decline'" class="modal-content">
+    <label>Decline Reason : <span class="error-message">{{modal.error}}</span></label>
+    <textarea [(ngModel)]="modal.declineReason" class="mb-sm-1"></textarea>
     <div>
-      <a class="btn btn-success float-right" (click)="declineSubmitReason()">
-        Decline
-      </a>
-      <a class="btn btn-success float-left" (click)="display=false">
-        Cancel
-      </a>
+      <a class="btn btn-primary float-right" (click)="declineSubmitReason()"> Decline </a>
+      <a class="btn btn-danger float-left" (click)="modal.display=false"> Close </a>
     </div>
+  </div>
+
+  <div *ngIf="modal.type==='assignPurchaser'" class="modal-content assign-modal-content">
+    <app-users class="mb-sm-1" [type]="'PURCHASING'" [restaurantId]="modal.rowId" [assignBtn]="true"></app-users>
+    <div>
+      <a class="btn btn-danger float-right" (click)="modal.display=false"> Close </a>
+    </div>
+  </div>
+
+  <div *ngIf="modal.type==='approve'" class="modal-content assign-modal-content">
+    <form [formGroup]="restaurantService.userForm" (ngSubmit)="approveRestaurantSubmit()">
+      <h4>Create Account For Outlet : </h4>
+      <div class="row mb-sm-2 mt-sm-2">
+    <div class="col-md-6 float-left mb-sm-2">
+<!--
+      <label for="userName">User name</label>
+-->
+      <input id="userName" formControlName="userName" type="text" class="form-control" placeholder="User name">
+      <span class="error"><small [hidden]="restaurantService.userForm.controls.userName.valid || restaurantService.userForm.controls.userName.untouched" class="text-danger">
+              <span *ngIf="restaurantService.userForm.controls.userName.errors?.required"> User Name is required</span>
+              <span *ngIf="restaurantService.userForm.controls.userName.errors?.maxlength"> User Name max length 20</span>
+            </small></span>
+    </div>
+      <div class="col-md-6 float-left mb-sm-2">
+<!--
+        <label for="contactNo">Contact Number</label>
+-->
+        <input id="contactNo" formControlName="contactNo" type="text" class="form-control" placeholder="Contact Number">
+        <span class="error"><small [hidden]="restaurantService.userForm.controls.contactNo.valid || restaurantService.userForm.controls.contactNo.untouched" class="text-danger">
+              <span *ngIf="restaurantService.userForm.controls.contactNo.errors?.required"> Contact No is required</span>
+              <span *ngIf="restaurantService.userForm.controls.contactNo.errors?.maxlength"> Contact No max length 20</span>
+                        <span *ngIf="restaurantService.userForm.controls.contactNo.errors?.pattern"> Invalid Contact Number</span>
+
+            </small></span>
+      </div>
+    <div class="col-md-6 float-left">
+<!--
+      <label for="password">Password</label>
+-->
+      <input id="password" formControlName="password" type="password" class="form-control" placeholder="Password">
+      <span class="error"><small [hidden]="restaurantService.userForm.controls.password.valid || restaurantService.userForm.controls.password.untouched" class="text-danger">
+              <span *ngIf="restaurantService.userForm.controls.password.errors?.required"> Password is required</span>
+              <span *ngIf="restaurantService.userForm.controls.password.errors?.maxlength"> Password max length 20</span>
+            </small></span>
+    </div>
+    <div class="col-md-6 float-left">
+<!--
+      <label for="cpassword">Confirm Password</label>
+-->
+      <input id="cpassword" formControlName="confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+      <span class="error"><small [hidden]="restaurantService.userForm.controls.confirmPassword.valid || restaurantService.userForm.controls.confirmPassword.untouched" class="text-danger">
+              <span *ngIf="restaurantService.userForm.controls.confirmPassword.errors?.required"> Confirm Password is required</span>
+                         <span *ngIf="restaurantService.userForm.controls.confirmPassword.errors?.notEqualPassword"> Confirm Password isn't equal password</span>
+            </small></span>
+    </div>
+
+      </div>
+    <div>
+      <input class="btn btn-primary float-right" type="submit"  value="Approve"/>
+      <a class="btn btn-danger float-left" (click)="modal.display=false">
+        Close
+      </a>
+
+    </div>
+    </form>
 
   </div>
 

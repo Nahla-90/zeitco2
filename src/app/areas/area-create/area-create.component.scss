@@ -1,0 +1,20 @@
+button, input, optgroup, select, textarea {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+label {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: #5D636A;
+  font-size: 15px;
+}
+.col-md-4,.col-md-6 {
+  float: left;
+}
+span.error{
+    height: 21px;
+    display: block;
+}
+.m-t-5{
+  margin-top: 5px;
+}

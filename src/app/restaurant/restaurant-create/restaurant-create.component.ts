@@ -182,7 +182,7 @@ export class RestaurantCreateComponent {
           if (resultData['id']) {
             this.formMsg = 'Restaurant created successfuly';
             this.class = 'success';
-            this.router.navigate(['/restaurants']);
+            this.router.navigate(['/outlets']);
 
           } else {
             this.formMsg = 'Sorry, Something went wrong!!!';

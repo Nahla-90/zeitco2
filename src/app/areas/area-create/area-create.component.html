@@ -1,0 +1,59 @@
+<section class="content-header">
+  <div *ngIf="formMsg && class" class="{{ class }}">
+    <p>{{ formMsg }}</p>
+  </div>
+  <h1 class="header-text"> Area Create </h1>
+  <form [formGroup]="areaForm" (ngSubmit)="onSubmit()">
+
+<mk-box>
+  <mk-box-header>Area Details</mk-box-header>
+
+  <mk-box-content>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="col-md-4">
+        <label for="nameEn">Area Name By English</label>
+        <input id="nameEn" type="text" class="form-control" formControlName="areaName">
+        <span class="error"><small [hidden]="areaForm.controls.areaName.valid || areaForm.controls.areaName.untouched" class="text-danger">
+          <span *ngIf="areaForm.controls.areaName.errors?.required"> Area Name is required</span>
+          <span *ngIf="areaForm.controls.areaName.errors?.maxlength"> Area Name max length 20</span>
+        </small></span>
+      </div>
+      <div class="col-md-4">
+        <label for="nameAr">Area Name By Arabic</label>
+        <input id="nameAr" type="text" class="form-control" formControlName="arabicAreaName">
+       <span class="error"><small [hidden]="areaForm.controls.arabicAreaName.valid || areaForm.controls.arabicAreaName.untouched" class="text-danger">
+          <span *ngIf="areaForm.controls.arabicAreaName.errors?.required"> Area Name is required</span>
+          <span *ngIf="areaForm.controls.arabicAreaName.errors?.maxlength"> Area Name max length 20</span>
+       </small></span>
+      </div>
+      <div class="col-md-4 m-t-5">
+        <label for="city">City</label>
+        <select class="form-control" formControlName="city">
+          <option value="">Select</option>
+          <option *ngFor="let city of restaurantService.cities; index as i"
+                  value="{{city.id}}">{{city.cityName}}
+          </option>
+        </select>
+
+        <span class="error"><small [hidden]="areaForm.controls.city.valid || areaForm.controls.city.untouched" class="text-danger">
+              <span *ngIf="areaForm.controls.city.errors?.required"> City is required</span>
+            </small></span>
+      </div>
+
+    </div>
+
+
+  </mk-box-content>
+</mk-box>
+
+    <div class="row">
+      <div class="col-md-6 form-group pull-left">
+        <a class="btn btn-primary pull-left" [routerLink]="['/cities']"> Back</a>
+      </div>
+      <div class="col-md-6 form-group pull-right">
+        <input type="submit" class="btn btn-primary pull-right"  [value]="!loading?'Save':'Loading...'" [disabled]="loading"/>
+      </div>
+    </div>
+
+  </form>
+</section>

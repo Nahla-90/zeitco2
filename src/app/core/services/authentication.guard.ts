@@ -11,7 +11,6 @@ export class AuthenticationGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     /* Check if Current User is logged in */
-    console.log(localStorage.getItem('currentUser'));
     if (localStorage.getItem('currentUser') !== null) {
       return of(true);
     } else {

@@ -1,0 +1,91 @@
+<section class="content-header">
+  <div *ngIf="formMsg && class" class="{{ class }}">
+    <p>{{ formMsg }}</p>
+  </div>
+  <h1 class="header-text"> City Create </h1>
+  <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+
+<mk-box>
+  <mk-box-header>City Details</mk-box-header>
+
+  <mk-box-content>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="col-md-4">
+        <label for="nameEn">City Name By English</label>
+        <input id="nameEn" type="text" class="form-control" formControlName="cityName">
+        <span class="error"><small [hidden]="cityForm.controls.cityName.valid || cityForm.controls.cityName.untouched" class="text-danger">
+          <span *ngIf="cityForm.controls.cityName.errors?.required"> City Name is required</span>
+          <span *ngIf="cityForm.controls.cityName.errors?.maxlength"> City Name max length 20</span>
+        </small></span>
+      </div>
+      <div class="col-md-4">
+        <label for="nameAr">City Name By Arabic</label>
+        <input id="nameAr" type="text" class="form-control" formControlName="arabicCityName">
+       <span class="error"><small [hidden]="cityForm.controls.arabicCityName.valid || cityForm.controls.arabicCityName.untouched" class="text-danger">
+          <span *ngIf="cityForm.controls.arabicCityName.errors?.required"> City Name is required</span>
+          <span *ngIf="cityForm.controls.arabicCityName.errors?.maxlength"> City Name max length 20</span>
+       </small></span>
+      </div>
+    </div>
+
+
+  </mk-box-content>
+</mk-box>
+
+
+    <mk-box *ngIf="cityId!==null" [isRemovable]="false" [isCollapsable]="false">
+      <mk-box-header class="text-capitalize"> Areas</mk-box-header>
+      <mk-box-tools><a class="btn btn-primary pull-right" [routerLink]="['/area/create']">Create
+        Area </a></mk-box-tools>
+      <mk-box-content>
+
+        <p-table
+          #dt
+          [value]="areaTable.records"
+          [paginator]="true"
+          [lazy]="false"
+          [rows]="areaTable.limit"
+          [totalRecords]="areaTable.totalRecords"
+          sortField="id"
+          [sortOrder]="-1"
+          [resizableColumns]="true"
+          [rowsPerPageOptions]="areaTable.paginationList">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pResizableColumn class="fit-width">
+                Id
+                <p-sortIcon [field]="'id'" [pSortableColumn]="'id'"></p-sortIcon>
+              </th>
+              <th pResizableColumn>Name Ar</th>
+              <th pResizableColumn>Name En</th>
+              <th pResizableColumn>Action</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-area>
+            <tr>
+              <td class="ui-resizable-column">{{ area.id }}</td>
+              <td>{{area.arabicAreaName}}</td>
+              <td>{{area.areaName}}</td>
+              <td class="ui-resizable-column">
+                <a class="btn btn-primary mr-sm-1" routerLink="/area/{{ area.id }}/{{cityId}}">
+                  <i class="fa fa-edit"></i>
+                </a>
+               <a class="btn btn-danger" (click)="deleteArea(area.id)"><i class="fa fa-trash"></i></a>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </mk-box-content>
+    </mk-box>
+
+    <div class="row">
+      <div class="col-md-6 form-group pull-left">
+        <a class="btn btn-primary pull-left" [routerLink]="['/cities']"> Back</a>
+      </div>
+      <div class="col-md-6 form-group pull-right">
+        <input type="submit" class="btn btn-primary pull-right"  [value]="!loading?'Save':'Loading...'" [disabled]="loading"/>
+      </div>
+    </div>
+
+  </form>
+</section>

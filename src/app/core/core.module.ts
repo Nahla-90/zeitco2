@@ -18,10 +18,20 @@ export var adminLteConf = {
     {label: 'MAIN NAVIGATION', separator: true},
     // {label: 'Restaurants', route: '/restaurants', iconClasses: 'fa fa-th'}
     {
-      label: 'Restaurants', iconClasses: 'fa fa-files-o', children: [
-        {label: 'Approved', route: '/restaurants'}
+      label: 'Outlets', iconClasses: 'fa fa-cutlery', children: [
+        {label: 'Approved Outlets', route: '/outlets/approved'},
+        {label: 'Surveyed Outlets', route: '/outlets/surveyed'},
+        {label: 'Purchased Outlets', route: '/outlets/purchased'},
+        {label: 'Registered Outlets', route: '/outlets/registered'}
+
       ]
-    }
+    },
+    {
+      label: 'Cities And Areas', iconClasses: 'fa fa-map-marker', children: [
+        {label: 'Cities', route: '/cities'}
+
+      ]
+    },
   ]
 };
 

@@ -148,6 +148,7 @@
             <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.contactNo.valid || restaurantService.restaurantForm.controls.contactNo.untouched" class="text-danger">
               <span *ngIf="restaurantService.restaurantForm.controls.contactNo.errors?.required"> Contact No is required</span>
               <span *ngIf="restaurantService.restaurantForm.controls.contactNo.errors?.maxlength"> Contact No max length 20</span>
+              <span *ngIf="restaurantService.restaurantForm.controls.contactNo.errors?.pattern"> Invalid Contact Number</span>
             </small></span>
           </div>
           <div class="col-md-4 m-t-5">
@@ -171,7 +172,7 @@
           </div>
           <div class="col-md-6" *ngIf="restaurantId===null">
             <label for="password">Password</label>
-            <input id="password" formControlName="password" type="text" class="form-control">
+            <input id="password" formControlName="password" type="password" class="form-control">
             <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.password.valid || restaurantService.restaurantForm.controls.password.untouched" class="text-danger">
               <span *ngIf="restaurantService.restaurantForm.controls.password.errors?.required"> Password is required</span>
               <span *ngIf="restaurantService.restaurantForm.controls.password.errors?.maxlength"> Password max length 20</span>
@@ -180,7 +181,7 @@
           </div>
           <div class="col-md-6" *ngIf="restaurantId===null">
             <label for="cpassword">Confirm Password</label>
-            <input id="cpassword" formControlName="confirmPassword" type="text" class="form-control">
+            <input id="cpassword" formControlName="confirmPassword" type="password" class="form-control">
             <span class="error"><small [hidden]="restaurantService.restaurantForm.controls.confirmPassword.valid || restaurantService.restaurantForm.controls.confirmPassword.untouched" class="text-danger">
               <span *ngIf="restaurantService.restaurantForm.controls.confirmPassword.errors?.required"> Confirm Password is required</span>
                          <span *ngIf="restaurantService.restaurantForm.controls.confirmPassword.errors?.notEqualPassword"> Confirm Password isn't equal password</span>

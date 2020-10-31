@@ -8,6 +8,9 @@ import {LoginModule} from '../app/login/login.module';
 import {UrlsModule} from '../app/urls/urls.module';
 import {RestaurantModule} from '../app/restaurant/restaurant.module';
 import {RegisterModule} from './register/register.module';
+import {UsersModule} from './users/users.module';
+import {CitiesModule} from './cities/cities.module';
+import {AreaModule} from './areas/area.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import {RegisterModule} from './register/register.module';
     UrlsModule,
     RestaurantModule,
     RegisterModule,
+    UsersModule,
+    CitiesModule,
+    AreaModule,
     BrowserAnimationsModule
   ],
   providers: [],

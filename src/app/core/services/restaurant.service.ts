@@ -37,33 +37,42 @@ export class RestaurantService {
     address: '',
     cityName: '',
     areaName: '',
+    status: ''
   };
   restaurantForm: FormGroup = this.formBuilder.group({
-    nameEn: [this.restaurant.nameEn, [Validators.required, Validators.maxLength(20)]],
-    nameAr: [this.restaurant.nameAr, [Validators.required, Validators.maxLength(20)]],
-    phoneNumber: [this.restaurant.phoneNumber, [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
-    price: [this.restaurant.price, [Validators.required]],
-    oilType: [this.restaurant.oilType, [Validators.required]],
-    class: [this.restaurant.class, [Validators.required]],
-    outletSpace: [this.restaurant.outletSpace, [Validators.required]],
-    estimatedQty: [this.restaurant.estimatedQty, [Validators.required]],
-    paymentMethod: [this.restaurant.paymentMethod, [Validators.required]],
-    note: [this.restaurant.note],
+      nameEn: [this.restaurant.nameEn, [Validators.required, Validators.maxLength(20)]],
+      nameAr: [this.restaurant.nameAr, [Validators.required, Validators.maxLength(20)]],
+      phoneNumber: [this.restaurant.phoneNumber, [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
+      price: [this.restaurant.price, [Validators.required]],
+      oilType: [this.restaurant.oilType, [Validators.required]],
+      class: [this.restaurant.class, [Validators.required]],
+      outletSpace: [this.restaurant.outletSpace, [Validators.required]],
+      estimatedQty: [this.restaurant.estimatedQty, [Validators.required]],
+      paymentMethod: [this.restaurant.paymentMethod, [Validators.required]],
+      note: [this.restaurant.note],
 
-    firstName: [this.restaurant.firstName, [Validators.required, Validators.maxLength(20)]],
-    lastName: [this.restaurant.lastName, [Validators.required, Validators.maxLength(20)]],
-    contactNo: [this.restaurant.contactNo, [Validators.required]],
-    title: [this.restaurant.title, [Validators.required]],
-    email: [this.restaurant.email, [Validators.required, Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
-    userName: [this.restaurant.userName, [Validators.required]],
-    password: [this.restaurant.password, [Validators.required]],
-    confirmPassword: [this.restaurant.confirmPassword, [Validators.required, this.equalToPassword()]],
-    city: [this.restaurant.city, [Validators.required]],
-    area: [this.restaurant.area, [Validators.required]],
-    address: [this.restaurant.address, [Validators.required]],
+      firstName: [this.restaurant.firstName, [Validators.required, Validators.maxLength(20)]],
+      lastName: [this.restaurant.lastName, [Validators.required, Validators.maxLength(20)]],
+      contactNo: [this.restaurant.contactNo, [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
+      title: [this.restaurant.title, [Validators.required]],
+      email: [this.restaurant.email, [Validators.required, Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
+      userName: [this.restaurant.userName, [Validators.required]],
+      password: [this.restaurant.password, [Validators.required]],
+      confirmPassword: [this.restaurant.confirmPassword, [Validators.required, this.equalToPassword()]],
+      city: [this.restaurant.city, [Validators.required]],
+      area: [this.restaurant.area, [Validators.required]],
+      address: [this.restaurant.address, [Validators.required]],
 
-  }
-);
+    }
+  );
+  userForm: FormGroup = this.formBuilder.group({
+      userName: ['', [Validators.required]],
+      contactNo: [this.restaurant.contactNo, [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
+
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required, this.equalToPassword()]]
+    }
+  );
 
 
   public constructor(private httpClient: HttpClient, private formBuilder: FormBuilder) {
@@ -96,6 +105,7 @@ export class RestaurantService {
           cityName: resultData.branches[0].city.cityName,
           areaName: resultData.branches[0].area.areaName,
           address: resultData.branches[0].address,
+          status: resultData.status
         };
       }, error => {
         console.log(error);
@@ -113,7 +123,7 @@ export class RestaurantService {
           paymentMethod: [this.restaurant.paymentMethod, [Validators.required]],
           note: [this.restaurant.note],
 
-          contactNo: [this.restaurant.contactNo, [Validators.required ,Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
+          contactNo: [this.restaurant.contactNo, [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
           title: [this.restaurant.title, [Validators.required]],
           email: [this.restaurant.email, [Validators.required, Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
           userName: [this.restaurant.userName, [Validators.required]],
@@ -126,6 +136,7 @@ export class RestaurantService {
 
       });
   }
+
   equalToPassword(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control && control.parent && control.value === control.parent.controls['password'].value) {
@@ -135,6 +146,7 @@ export class RestaurantService {
       }
     };
   }
+
   loadAreas() {
     if (this.restaurantForm.controls['city'].value > 0) {
       this.areas = [];
@@ -155,5 +167,52 @@ export class RestaurantService {
         console.log(error);
       });
   }
+
+  /*public addRestaurantUserData(){
+    let params = {
+      restaurantName: this.restaurant.nameEn,
+      average: this.restaurant.estimatedQty,
+      price: this.restaurant.price,
+      space: this.restaurant.outletSpace,
+      address: this.restaurant.address,
+      branchesNumber: 1,
+      phone: this.restaurant.contactNo,
+      outletPhoneNumber: this.restaurant.phoneNumber,
+     // director: this.user.user.id,
+     // branches: branches,
+      //email: this..restaurantForm.controls['email'].value,
+     // type: this.user.user.type,
+      password: this..restaurantForm.controls['password'].value,
+     // title: this..restaurantForm.controls['title'].value,
+      username: this..restaurantForm.controls['userName'].value,
+     /!* oilType: this..restaurantForm.controls['oilType'].value,
+      payType: this..restaurantForm.controls['paymentMethod'].value,
+      restaurantName_ar: this..restaurantForm.controls['nameAr'].value,
+      class: this..restaurantForm.controls['class'].value,
+      note: this..restaurantForm.controls['note'].value,*!/
+    };
+    const result = this.httpClient.put<any[]>('/api/v1/restaurant/' + this.restaurantId, params).subscribe(resultData => {
+      if (resultData['id']) {
+        this.formMsg = 'Restaurant updated successfuly';
+        this.class = 'success';
+        this.loading = false;
+
+      } else {
+        alert('1');
+        this.formMsg = resultData['errors'][0]['msg'];
+        this.class = 'error';
+        this.loading = false;
+
+      }
+    }, (resultData) => {
+
+      this.formMsg = resultData['error']['errors'][0]['msg'];
+      this.class = 'error';
+      this.loading = false;
+
+    }, () => {
+
+    });
+  }*/
 
 }
