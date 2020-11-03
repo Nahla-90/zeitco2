@@ -37,5 +37,5 @@ const routes: Routes = [
   ],
   providers: []
 })
-export class AreaModule {
+export class AreasModule {
 }

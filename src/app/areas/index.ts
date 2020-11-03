@@ -1,1 +1,1 @@
-export * from './area.module';
+export * from './areas.module';

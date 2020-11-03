@@ -10,7 +10,7 @@ import {RestaurantModule} from '../app/restaurant/restaurant.module';
 import {RegisterModule} from './register/register.module';
 import {UsersModule} from './users/users.module';
 import {CitiesModule} from './cities/cities.module';
-import {AreaModule} from './areas/area.module';
+import {AreasModule} from './areas/areas.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import {AreaModule} from './areas/area.module';
     RegisterModule,
     UsersModule,
     CitiesModule,
-    AreaModule,
+    AreasModule,
     BrowserAnimationsModule
   ],
   providers: [],
