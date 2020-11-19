@@ -9,6 +9,11 @@
   <mk-box-tools><a class="btn btn-primary pull-right" [routerLink]="['/outlets/create']">Create
     Outlet </a></mk-box-tools>
   <mk-box-content>
+    <div class="row col-md-12 mb-sm-1">
+      <label>Search : </label>
+      <input type="text" [(ngModel)]="filters.searchText" class="ml-sm-2" />
+      <input type="button" class="btn btn-primary ml-sm-1" value="Search" (click)="load()" >
+    </div>
 
     <p-table
       #dt

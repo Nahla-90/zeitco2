@@ -137,7 +137,6 @@ export class RestaurantCreateComponent {
             this.loading = false;
 
           } else {
-            alert('1');
             this.formMsg = resultData['errors'][0]['msg'];
             this.class = 'error';
             this.loading = false;

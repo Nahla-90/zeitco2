@@ -37,9 +37,9 @@ export class RestaurantComponent {
     error: ''
   };
   public filters = {
-    name: '',
     area: '',
-    noOil: ''
+    noOil: '',
+    searchText:''
   };
 
   public restaurantService: RestaurantService = new RestaurantService(this.httpClient, this.formBuilder);
@@ -72,7 +72,7 @@ export class RestaurantComponent {
           this.status = 'APPROVED';
         }
         this.filters = {
-          name: '',
+          searchText: '',
           area: '',
           noOil: ''
         };
@@ -97,8 +97,8 @@ export class RestaurantComponent {
     if (this.filters.area !== '') {
       params = params.set('area', this.filters.area);
     }
-    if (this.filters.name !== '') {
-      params = params.set('name', this.filters.name);
+    if (this.filters.searchText !== '') {
+      params = params.set('search', this.filters.searchText);
     }
     // @ts-ignore
     const result = this.httpClient.get<any[]>('/api/v1/restaurant', {params}).subscribe(
