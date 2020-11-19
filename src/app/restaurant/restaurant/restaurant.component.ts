@@ -36,12 +36,19 @@ export class RestaurantComponent {
     restaurant: null,
     error: ''
   };
-  public noOil = null;
+  public filters = {
+    name: '',
+    area: '',
+    noOil: ''
+  };
+
   public restaurantService: RestaurantService = new RestaurantService(this.httpClient, this.formBuilder);
 
 
   constructor(private httpClient: HttpClient,
               private _activeRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) {
+    this.loadAllAreas();
+
     /* Default sort field for url table is id*/
     this.restaurantTable.sortField = 'id';
 
@@ -50,7 +57,9 @@ export class RestaurantComponent {
       .subscribe((event: NavigationEnd) => {
         const qParams = this._activeRoute.snapshot.params;
         if (qParams.status !== null || qParams.status) {
-          if (qParams.status === 'purchased') {
+          if (qParams.status === 'purchased-agreement') {
+            this.status = 'PROCEED';
+          } else if (qParams.status === 'purchased-non-agreement') {
             this.status = 'PURCHASING-ACCOUNT';
           } else if (qParams.status === 'surveyed') {
             this.status = 'SURVEY-ACCOUNT';
@@ -62,20 +71,34 @@ export class RestaurantComponent {
         } else {
           this.status = 'APPROVED';
         }
-        this.noOil = null;
+        this.filters = {
+          name: '',
+          area: '',
+          noOil: ''
+        };
         this.restaurantTable.offset = 0;
         this.dataTableComponent.reset();
       });
-
     //  this.load();
   }
 
   public load() {
     let params = new HttpParams()
       .set('page', String((this.restaurantTable.offset / this.restaurantTable.limit) + 1))
-      .set('status', this.status);
-    if (this.noOil !== null) {
-      params = params.set('noOil', this.noOil);
+      .set('status', this.status)
+      .set('orderByArea', String(true));
+
+    if (this.status === 'PURCHASING-ACCOUNT') {
+      params = params.set('agreement', 'NON-AGREEMENT');
+    }
+    if (this.filters.noOil !== '') {
+      params = params.set('noOil', this.filters.noOil);
+    }
+    if (this.filters.area !== '') {
+      params = params.set('area', this.filters.area);
+    }
+    if (this.filters.name !== '') {
+      params = params.set('name', this.filters.name);
     }
     // @ts-ignore
     const result = this.httpClient.get<any[]>('/api/v1/restaurant', {params}).subscribe(
@@ -198,5 +221,30 @@ export class RestaurantComponent {
   loadRestaurantsLazy(event: any) {
     this.restaurantTable.loadTableLazy(event);
     this.load();
+  }
+
+  loadAllAreas() {
+    this.restaurantService.areas = [];
+
+    const result = this.httpClient.get<any[]>('/api/v1/cities').subscribe(
+      (resultData: any) => {
+        resultData.forEach(city => {
+
+          const result2 = this.httpClient.get<any[]>('/api/v1/cities/' + city.id + '/areas').subscribe(
+            (resultData2: any) => {
+              resultData2.forEach(area => {
+                this.restaurantService.areas.push(area);
+              });
+            }, error2 => {
+              console.log(error2);
+            });
+        });
+
+      }, error => {
+        console.log(error);
+      }, () => {
+      });
+
+
   }
 }

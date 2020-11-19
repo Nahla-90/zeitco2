@@ -97,7 +97,7 @@ export class RestaurantCreateComponent {
     if (this.restaurantService.restaurantForm.valid) {
 
       const branches = JSON.stringify([{
-        destination: [1, 2],
+        destination: [this.restaurantService.restaurantForm.controls['longitude'].value, this.restaurantService.restaurantForm.controls['latitude'].value],
         area: this.restaurantService.restaurantForm.controls['area'].value,
         address: this.restaurantService.restaurantForm.controls['address'].value,
         city: this.restaurantService.restaurantForm.controls['city'].value

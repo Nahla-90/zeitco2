@@ -30,18 +30,32 @@
             Id
             <p-sortIcon [field]="'id'" [pSortableColumn]="'id'"></p-sortIcon>
           </th>
+          <th pResizableColumn>Name
+<!--
+            <input type="text" (change)="load()" [(ngModel)]="filters.name">
+-->
+          </th>
           <th pResizableColumn>Name Ar</th>
           <th pResizableColumn>Title</th>
+          <th pResizableColumn>City
+          </th>
+          <th pResizableColumn>Area
+            <select class="form-control"  (change)="load()" [(ngModel)]="filters.area">
+              <option value="">Select</option>
+              <option *ngFor="let area of restaurantService.areas; index as i"
+                      value="{{area.id}}">{{area.areaName}}
+              </option>
+            </select>
+          </th>
           <th pResizableColumn>Oil Type</th>
           <th pResizableColumn>Pay Type</th>
           <th pResizableColumn>No Oil
-          <select [(ngModel)]="noOil" (change)="load()">
+          <select [(ngModel)]="filters.noOil" (change)="load()">
             <option value="null">All</option>
             <option value="true">True</option>
             <option value="false">False</option>
           </select>
           </th>
-          <th pResizableColumn>Agreement</th>
           <th pResizableColumn class="w-270">Action</th>
 
         </tr>
@@ -49,16 +63,16 @@
       <ng-template pTemplate="body" let-restaurant>
         <tr>
           <td class="ui-resizable-column">{{ restaurant.id }}</td>
+          <td>{{restaurant.restaurantName}}</td>
           <td>{{restaurant.restaurantName_ar}}</td>
           <td>{{restaurant.title}}</td>
+          <td>{{restaurant.branches[0]['city']['cityName']}}</td>
+          <td>{{restaurant.branches[0]['area']['areaName']}}</td>
           <td>{{restaurant.oilType}}</td>
           <td>{{restaurant.payType}}</td>
           <td>
             <i *ngIf="restaurant.noOil" class="sign fa fa-check"></i>
             <i *ngIf="!restaurant.noOil" class="sign fa fa-times"></i>
-          </td>
-          <td>
-            {{restaurant.Agreement}}
           </td>
           <td class="ui-resizable-column" >
             <a class="table-btn btn btn-primary mr-sm-1" routerLink="/outlets/{{ restaurant.id }}/update">
@@ -67,13 +81,13 @@
             <a class="table-btn btn btn-success mr-sm-1" routerLink="/outlets/{{ restaurant.id }}/view">
               <i class="fa fa-eye"></i>
             </a>
-            <a *ngIf="status==='APPROVED'||status==='PURCHASING-ACCOUNT'" class="table-btn btn btn-danger mr-sm-1" (click)="declineRestaurant(restaurant.id)">
+            <a *ngIf="status==='APPROVED'||status==='PURCHASING-ACCOUNT'||status==='PROCEED'" class="table-btn btn btn-danger mr-sm-1" (click)="declineRestaurant(restaurant.id)">
               Decline
             </a>
             <a *ngIf="status==='SURVEY-ACCOUNT'||status==='RESTURANT-ACCOUNT'" class="table-btn btn bg-maroon" (click)="assignPurchaser(restaurant.id)">
               Assign To Purchaser
             </a>
-            <a *ngIf="status==='PURCHASING-ACCOUNT'" class="table-btn btn btn-info" (click)="approveRestaurant(restaurant.id)">
+            <a *ngIf="status==='PURCHASING-ACCOUNT'||status==='PROCEED'" class="table-btn btn btn-info" (click)="approveRestaurant(restaurant.id)">
               Approved
             </a>
           </td>

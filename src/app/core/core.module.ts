@@ -17,11 +17,17 @@ export var adminLteConf = {
   sidebarLeftMenu: [
     {label: 'MAIN NAVIGATION', separator: true},
     // {label: 'Restaurants', route: '/restaurants', iconClasses: 'fa fa-th'}
-    {
+    { //route: '/outlets/purchased',
       label: 'Outlets', iconClasses: 'fa fa-cutlery', children: [
         {label: 'Approved Outlets', route: '/outlets/approved'},
         {label: 'Surveyed Outlets', route: '/outlets/surveyed'},
-        {label: 'Purchased Outlets', route: '/outlets/purchased'},
+        {
+          label: 'Purchased Outlets',  children: [
+            {label: 'Agreement Outlets', route: '/outlets/purchased-agreement'},
+            {label: 'Non Agreement Outlets', route: '/outlets/purchased-non-agreement'},
+
+          ]
+        },
         {label: 'Registered Outlets', route: '/outlets/registered'}
 
       ]

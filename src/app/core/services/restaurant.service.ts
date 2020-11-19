@@ -37,7 +37,9 @@ export class RestaurantService {
     address: '',
     cityName: '',
     areaName: '',
-    status: ''
+    status: '',
+    longitude:'',
+    latitude:''
   };
   restaurantForm: FormGroup = this.formBuilder.group({
       nameEn: [this.restaurant.nameEn, [Validators.required, Validators.maxLength(20)]],
@@ -62,7 +64,8 @@ export class RestaurantService {
       city: [this.restaurant.city, [Validators.required]],
       area: [this.restaurant.area, [Validators.required]],
       address: [this.restaurant.address, [Validators.required]],
-
+    longitude:[this.restaurant.longitude, [Validators.required,Validators.pattern('^[0-9]\\d+$')]],
+    latitude:[this.restaurant.latitude, [Validators.required,Validators.pattern('^[0-9]\\d+$')]],
     }
   );
   userForm: FormGroup = this.formBuilder.group({
@@ -105,7 +108,9 @@ export class RestaurantService {
           cityName: resultData.branches[0].city.cityName,
           areaName: resultData.branches[0].area.areaName,
           address: resultData.branches[0].address,
-          status: resultData.status
+          status: resultData.status,
+          longitude: resultData.branches[0].destination[0],
+          latitude:resultData.branches[0].destination[1],
         };
       }, error => {
         console.log(error);
@@ -130,7 +135,8 @@ export class RestaurantService {
           city: [this.restaurant.city, [Validators.required]],
           area: [this.restaurant.area, [Validators.required]],
           address: [this.restaurant.address, [Validators.required]],
-
+          longitude:[this.restaurant.longitude, [Validators.required,Validators.pattern('^[0-9]\\d+$')]],
+          latitude:[this.restaurant.latitude, [Validators.required,Validators.pattern('^[0-9]\\d+$')]],
         });
         this.loadAreas();
 
