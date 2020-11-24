@@ -57,15 +57,15 @@ export class RestaurantService {
       lastName: [this.restaurant.lastName, [Validators.required, Validators.maxLength(20)]],
       contactNo: [this.restaurant.contactNo, [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
       title: [this.restaurant.title, [Validators.required]],
-      email: [this.restaurant.email, [Validators.required, Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
+      email: [this.restaurant.email, [Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
       userName: [this.restaurant.userName, [Validators.required]],
       password: [this.restaurant.password, [Validators.required]],
       confirmPassword: [this.restaurant.confirmPassword, [Validators.required, this.equalToPassword()]],
       city: [this.restaurant.city, [Validators.required]],
       area: [this.restaurant.area, [Validators.required]],
       address: [this.restaurant.address, [Validators.required]],
-    longitude:[this.restaurant.longitude, [Validators.required,Validators.pattern('^[0-9]\\d+$')]],
-    latitude:[this.restaurant.latitude, [Validators.required,Validators.pattern('^[0-9]\\d+$')]],
+    longitude:[this.restaurant.longitude, [Validators.pattern('[+-]?([0-9]*[.])?[0-9]+')]],
+    latitude:[this.restaurant.latitude, [Validators.pattern('[+-]?([0-9]*[.])?[0-9]+')]],
     }
   );
   userForm: FormGroup = this.formBuilder.group({
@@ -130,13 +130,13 @@ export class RestaurantService {
 
           contactNo: [this.restaurant.contactNo, [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
           title: [this.restaurant.title, [Validators.required]],
-          email: [this.restaurant.email, [Validators.required, Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
+          email: [this.restaurant.email, [Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
           userName: [this.restaurant.userName, [Validators.required]],
           city: [this.restaurant.city, [Validators.required]],
           area: [this.restaurant.area, [Validators.required]],
           address: [this.restaurant.address, [Validators.required]],
-          longitude:[this.restaurant.longitude, [Validators.required,Validators.pattern('^[0-9]\\d+$')]],
-          latitude:[this.restaurant.latitude, [Validators.required,Validators.pattern('^[0-9]\\d+$')]],
+          longitude:[this.restaurant.longitude, [Validators.pattern('[+-]?([0-9]*[.])?[0-9]+')]],
+          latitude:[this.restaurant.latitude, [Validators.pattern('[+-]?([0-9]*[.])?[0-9]+')]],
         });
         this.loadAreas();
 

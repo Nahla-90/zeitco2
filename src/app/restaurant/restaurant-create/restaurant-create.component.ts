@@ -119,7 +119,6 @@ export class RestaurantCreateComponent {
           status: this.status,
           director: this.user.user.id,
           branches: branches,
-          email: this.restaurantService.restaurantForm.controls['email'].value,
           type: this.user.user.type,
           //password: this.restaurantService.restaurantForm.controls['password'].value,
           title: this.restaurantService.restaurantForm.controls['title'].value,
@@ -130,6 +129,9 @@ export class RestaurantCreateComponent {
           class: this.restaurantService.restaurantForm.controls['class'].value,
           note: this.restaurantService.restaurantForm.controls['note'].value,
         };
+        if (this.restaurantService.restaurantForm.controls['email'].value !== '') {
+          params = Object.assign(params, {email: this.restaurantService.restaurantForm.controls['email'].value});
+        }
         const result = this.httpClient.put<any[]>('/api/v1/restaurant/' + this.restaurantId, params).subscribe(resultData => {
           if (resultData['id']) {
             this.formMsg = 'Restaurant updated successfuly';
@@ -166,7 +168,6 @@ export class RestaurantCreateComponent {
           status: this.status,
           director: this.user.user.id,
           branches: branches,
-          email: this.restaurantService.restaurantForm.controls['email'].value,
           type: this.user.user.type,
           password: this.restaurantService.restaurantForm.controls['password'].value,
           title: this.restaurantService.restaurantForm.controls['title'].value,
@@ -177,6 +178,9 @@ export class RestaurantCreateComponent {
           class: this.restaurantService.restaurantForm.controls['class'].value,
           note: this.restaurantService.restaurantForm.controls['note'].value,
         };
+        if (this.restaurantService.restaurantForm.controls['email'].value !== '') {
+          params = Object.assign(params, {email: this.restaurantService.restaurantForm.controls['email'].value});
+        }
         const result = this.httpClient.post<any[]>('/api/v1/restaurant', params).subscribe(resultData => {
           if (resultData['id']) {
             this.formMsg = 'Restaurant created successfuly';
