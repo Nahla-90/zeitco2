@@ -131,7 +131,6 @@ export class RestaurantService {
           contactNo: [this.restaurant.contactNo, [Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9]\\d+$')]],
           title: [this.restaurant.title, [Validators.required]],
           email: [this.restaurant.email, [Validators.maxLength(30), Validators.pattern('.{1,}@[_a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)+')]],
-          userName: [this.restaurant.userName, [Validators.required]],
           city: [this.restaurant.city, [Validators.required]],
           area: [this.restaurant.area, [Validators.required]],
           address: [this.restaurant.address, [Validators.required]],

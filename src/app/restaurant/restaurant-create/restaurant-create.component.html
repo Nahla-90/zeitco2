@@ -199,7 +199,7 @@
 
             </small></span>
           </div>
-          <div class="col-md-4 m-t-5">
+          <div class="col-md-4 m-t-5" *ngIf="restaurantId===null">
             <label for="userName">User name</label>
             <input id="userName" formControlName="userName" type="text" class="form-control">
             <span class="error"><small
