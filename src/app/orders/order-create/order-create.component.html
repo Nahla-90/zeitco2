@@ -1,0 +1,76 @@
+<section class="content-header">
+  <div *ngIf="formMsg && class" class="{{ class }}">
+    <p>{{ formMsg }}</p>
+  </div>
+  <h1 class="header-text"> Order Create </h1>
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+
+    <mk-box>
+      <mk-box-header>Order Details</mk-box-header>
+
+      <mk-box-content>
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="col-md-4">
+            <label>Restaurant</label>
+            <select class="form-control" formControlName="restaurant">
+              <option value="">Select</option>
+              <option *ngFor="let restaurant of restaurants; index as i"
+                      value="{{restaurant.id}}">{{restaurant.restaurantName}}
+              </option>
+            </select>
+
+            <span class="error"><small
+              [hidden]="orderForm.controls.restaurant.valid || orderForm.controls.restaurant.untouched"
+              class="text-danger">
+          <span
+            *ngIf="orderForm.controls.restaurant.errors?.required"> restaurant is required</span>
+        </small></span>
+          </div>
+          <div class="col-md-4">
+            <label for="qty">Order Qty KG</label>
+            <input id="qty" type="text" class="form-control" formControlName="qty">
+            <span class="error"><small
+              [hidden]="orderForm.controls.qty.valid || orderForm.controls.qty.untouched"
+              class="text-danger">
+          <span
+            *ngIf="orderForm.controls.qty.errors?.required"> Order Qty is required</span>
+       </small></span>
+          </div>
+          <div class="col-md-4">
+            <label for="price">Estimated Price</label>
+            <input id="price" type="text" class="form-control" formControlName="price">
+            <span class="error"><small
+              [hidden]="orderForm.controls.price.valid || orderForm.controls.price.untouched"
+              class="text-danger">
+          <span
+            *ngIf="orderForm.controls.price.errors?.required"> Estimated Price is required</span>
+       </small></span>
+          </div>
+
+          <div class="col-md-4 m-t-5">
+            <label for="date">Date</label>
+            <p-calendar formControlName="date" [dateFormat]="'yy-m-d'" showIcon="true" showButtonBar="true" panelStyleClass="datepicker-top"></p-calendar>
+            <span class="error"><small
+              [hidden]="orderForm.controls.date.valid || orderForm.controls.date.untouched"
+              class="text-danger">
+          <span
+            *ngIf="orderForm.controls.date.errors?.required"> Date is required</span>
+        </small></span>
+          </div>
+
+        </div>
+      </mk-box-content>
+    </mk-box>
+
+    <div class="row">
+      <div class="col-md-6 form-group pull-left">
+        <a class="btn btn-primary pull-left" [routerLink]="['/orders']"> Back</a>
+      </div>
+      <div class="col-md-6 form-group pull-right">
+        <input type="submit" class="btn btn-primary pull-right" [value]="!loading?'Save':'Loading...'"
+               [disabled]="loading"/>
+      </div>
+    </div>
+
+  </form>
+</section>

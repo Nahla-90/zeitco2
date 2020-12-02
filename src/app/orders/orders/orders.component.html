@@ -1,0 +1,67 @@
+<!--
+//<mk-box header="Orders">
+-->
+<div *ngIf="formMsg && class" class="{{ class }} mb-sm-2">
+  <p>{{ formMsg }}</p>
+</div>
+<mk-box [isRemovable]="false" [isCollapsable]="false">
+  <mk-box-header class="text-capitalize">{{status}} Orders</mk-box-header>
+  <mk-box-tools><a class="btn btn-primary pull-right" [routerLink]="['/orders/create']">Create
+    Order </a></mk-box-tools>
+  <mk-box-content>
+
+    <p-table
+      #dt
+      [value]="ordersTable.records"
+      [paginator]="true"
+      [lazy]="true"
+      [rows]="ordersTable.limit"
+      [totalRecords]="ordersTable.totalRecords"
+      sortField="id"
+      [sortOrder]="-1"
+      [resizableColumns]="true"
+      [rowsPerPageOptions]="ordersTable.paginationList"
+      (onLazyLoad)="loadOrdersLazy($event)"
+
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn class="fit-width">
+            Id
+            <p-sortIcon [field]="'id'" [pSortableColumn]="'id'"></p-sortIcon>
+          </th>
+          <th pResizableColumn>Restaurant</th>
+          <th pResizableColumn>Qty</th>
+          <th pResizableColumn>Price For Kg
+          </th>
+          <th pResizableColumn>Problem
+          </th>
+          <th pResizableColumn>Date
+          </th>
+          <th pResizableColumn class="w-270">Action</th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td class="ui-resizable-column">{{ order.id }}</td>
+          <td>{{order.restaurant.title}}</td>
+          <td>{{order.average}}</td>
+          <td>{{order.priceForKg}}</td>
+          <td>
+            <i *ngIf="order.problem" class="sign fa fa-check"></i>
+            <i *ngIf="!order.problem" class="sign fa fa-times"></i>
+           </td>
+          <td>{{order.date}}</td>
+
+          <td class="ui-resizable-column" >
+            <a class="table-btn btn btn-success mr-sm-1" routerLink="/orders/{{ order.id }}/view">
+              <i class="fa fa-eye"></i>
+            </a>
+          </td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+  </mk-box-content>
+</mk-box>

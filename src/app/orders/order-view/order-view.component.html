@@ -1,0 +1,178 @@
+<section class="content-header" *ngIf="order!=undefined">
+  <h1> Order # {{order.id}} </h1>
+  <mk-box [isCollapsable]="false" [isRemovable]="false">
+    <mk-box-header>Order Details</mk-box-header>
+
+    <mk-box-content>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="col-md-4">
+          <label class="mr-sm-2">Serial Code:  </label> {{order.serialCode}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Asign To WareHouse:  </label> {{order.asignToWareHouse}}
+        </div>
+
+
+        <div class="col-md-4">
+          <label class="mr-sm-2">Status:  </label> {{order.status}}
+        </div>
+
+        <div class="col-md-4">
+          <label class="mr-sm-2">Quantity Kg:  </label> {{order.average}}
+        </div>
+
+        <div class="col-md-4">
+          <label class="mr-sm-2">Driver Take Date:  </label> {{order.driverTakeDate}}
+        </div>
+        <div class="col-md-4">
+        <label class="mr-sm-2">Total Price:  </label> {{order.totalPrice}}
+      </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">KG:  </label> {{order.kg}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Problem:  </label> {{order.problem}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Date:  </label> {{order.actionDate}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Type:  </label> {{order.type}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Asign:  </label> {{order.asign}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Collected Date:  </label> {{order.collectedDate}}
+        </div>
+
+        <div class="col-md-4">
+          <label class="mr-sm-2">Estimated Price:  </label> {{order.priceForKg}}
+        </div>
+
+        <div class="col-md-4">
+          <label class="mr-sm-2">Finish:  </label> {{order.finish}}
+        </div>
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Day :  </label> {{order.date}}
+        </div>
+      </div>
+    </mk-box-content>
+  </mk-box>
+  <mk-box [isCollapsable]="false" [isRemovable]="false">
+    <mk-box-header>Outlet Details</mk-box-header>
+    <mk-box-tools><a class="btn btn-primary pull-right" [routerLink]="['/outlets/'+order.restaurant.id+'/view']">View Outlet</a></mk-box-tools>
+    <mk-box-content>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="col-md-4">
+          <label class="mr-sm-2">Outlet Name By English : :  </label> {{order.restaurant.restaurantName}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Outlet Name By Arabic:  </label> {{order.restaurant.restaurantName_ar}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Phone Number:  </label> {{order.restaurant.phone}}
+        </div>
+
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Outlet Space:  </label> {{order.restaurant.space}}
+        </div>
+
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Payment Method:  </label> {{order.restaurant.payType}}
+        </div>
+
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Estimated. Qty:  </label> {{order.restaurant.average}}
+        </div>
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Oil Type:  </label> {{order.restaurant.oilType}}
+        </div>
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Class:  </label> {{order.restaurant.class}}
+        </div>
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Price:  </label> {{order.restaurant.price}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Full name:  </label> {{order.restaurant.firstname+' '+order.restaurant.lastname}}
+        </div>
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Email:  </label> {{order.restaurant.email}}
+        </div>
+
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Address:  </label> {{order.restaurant.branches[0].address}}
+        </div>
+      </div>
+    </mk-box-content>
+  </mk-box>
+  <mk-box [isCollapsable]="false" [isRemovable]="false" *ngIf="order.driver!=undefined">
+    <mk-box-header>Driver Details</mk-box-header>
+    <mk-box-content>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="col-md-4">
+          <label class="mr-sm-2">Id :  </label> {{order.driver.id}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Username:  </label> {{order.driver.username}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Full Name:  </label> {{order.driver.firstname+' '+order.driver.lastname}}
+        </div>
+
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Email:  </label> {{order.driver.email}}
+        </div>
+
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Phone:  </label> {{order.driver.phone}}
+        </div>
+      </div>
+
+    </mk-box-content>
+  </mk-box>
+  <mk-box [isCollapsable]="false" [isRemovable]="false" *ngIf="order.wareHouse!=undefined">
+    <mk-box-header>Warehouse Details</mk-box-header>
+    <mk-box-content>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="col-md-4">
+          <label class="mr-sm-2">Id :  </label> {{order.wareHouse.id}}
+        </div>
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Name:  </label> {{order.wareHouse.name}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Oil Quantity:  </label> {{order.wareHouse.oilQuantity}}
+        </div>
+        <div class="col-md-4">
+          <label class="mr-sm-2">Export Oli:  </label> {{order.wareHouse.exportOli}}
+        </div>
+
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Receive Oli:  </label> {{order.wareHouse.receiveOli}}
+        </div>
+
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Import Oli:  </label> {{order.wareHouse.importOli}}
+        </div>
+        <div class="col-md-4 ">
+          <label class="mr-sm-2">Capacity:  </label> {{order.wareHouse.capacity}}
+        </div>
+        <div class="col-md-4 ">
+        <label class="mr-sm-2">Free Capacity:  </label> {{order.wareHouse.freeCapacity}}
+      </div>
+
+      </div>
+
+    </mk-box-content>
+  </mk-box>
+  <div class="row">
+    <div class="col-md-6 form-group pull-left">
+      <a class="btn btn-primary pull-left" [routerLink]="['/orders']"> Back</a>
+    </div>
+    <div class="col-md-6 form-group pull-right" *ngIf="order.driver==undefined">
+      <a [routerLink]="['/assign-order/'+order.id]" class="btn btn-primary pull-right">Assign To Driver</a>
+    </div>
+  </div>
+</section>

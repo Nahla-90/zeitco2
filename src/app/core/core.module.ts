@@ -38,6 +38,14 @@ export var adminLteConf = {
 
       ]
     },
+    { //route: '/outlets/purchased',
+      label: 'Orders', iconClasses: 'fa fa-car', children: [
+        {label: 'Pending Orders', route: '/orders/pending'},
+        {label: 'Assigned Orders', route: '/orders/assigned'},
+        {label: 'On Progress Orders', route: '/orders/onprogress'},
+        {label: 'Collected Orders', route: '/orders/collected'}
+      ]
+    },
   ]
 };
 

@@ -11,6 +11,10 @@ import {RegisterModule} from './register/register.module';
 import {UsersModule} from './users/users.module';
 import {CitiesModule} from './cities/cities.module';
 import {AreasModule} from './areas/areas.module';
+import {OrdersModule} from './orders/orders.module';
+import {DriversModule} from './drivers/drivers.module';
+
+
 
 @NgModule({
   declarations: [
@@ -27,6 +31,8 @@ import {AreasModule} from './areas/areas.module';
     UsersModule,
     CitiesModule,
     AreasModule,
+    OrdersModule,
+    DriversModule,
     BrowserAnimationsModule
   ],
   providers: [],

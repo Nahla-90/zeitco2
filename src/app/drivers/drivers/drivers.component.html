@@ -1,0 +1,67 @@
+<!--
+//<mk-box header="Orders">
+-->
+<div *ngIf="formMsg && class" class="{{ class }} mb-sm-2">
+  <p>{{ formMsg }}</p>
+</div>
+<mk-box [isRemovable]="false" [isCollapsable]="false">
+  <mk-box-header class="text-capitalize"> Assign Order To Driver</mk-box-header>
+  <mk-box-content>
+
+    <p-table
+      #dt
+      [value]="driversTable.records"
+      [paginator]="true"
+      [lazy]="true"
+      [rows]="driversTable.limit"
+      [totalRecords]="driversTable.totalRecords"
+      sortField="id"
+      [sortOrder]="-1"
+      [resizableColumns]="true"
+      [rowsPerPageOptions]="driversTable.paginationList"
+      (onLazyLoad)="loadDriversLazy($event)"
+
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn class="fit-width">
+            Id
+            <p-sortIcon [field]="'id'" [pSortableColumn]="'id'"></p-sortIcon>
+          </th>
+          <th pResizableColumn>Name</th>
+          <th pResizableColumn>Username</th>
+
+          <th pResizableColumn>Email
+          </th>
+          <th pResizableColumn>Phone
+          </th>
+          <th pResizableColumn>Active
+          </th>
+          <th pResizableColumn class="w-270">Action</th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-driver>
+        <tr>
+          <td class="ui-resizable-column">{{ driver.id }}</td>
+          <td>{{driver.firstname +' '+driver.lastname}}</td>
+          <td>{{driver.username}}</td>
+          <td>{{driver.email}}</td>
+          <td>{{driver.phone}}</td>
+
+          <td>
+            <i *ngIf="driver.active" class="sign fa fa-check"></i>
+            <i *ngIf="!driver.active" class="sign fa fa-times"></i>
+           </td>
+
+          <td class="ui-resizable-column" >
+            <a class="table-btn btn btn-success mr-sm-1" (click)="assignToDriver(driver.id)">
+              Assign To Driver
+            </a>
+          </td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+  </mk-box-content>
+</mk-box>
