@@ -95,6 +95,10 @@
             <a *ngIf="status==='PURCHASING-ACCOUNT'||status==='PROCEED'" class="table-btn btn btn-info" (click)="approveRestaurant(restaurant.id)">
               Approved
             </a>
+
+            <a *ngIf="status==='PURCHASING-ACCOUNT'" class="table-btn btn bg-maroon" (click)="reassignPurchaser(restaurant.id)">
+              Reassign To Purchasing
+            </a>
           </td>
 
         </tr>

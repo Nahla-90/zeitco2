@@ -17,7 +17,7 @@ export class AuthenticationService {
     return this.http.post<any>('/api/v1/signin', {username: username, password: password}).pipe(
       map((res: any) => {
         /* login successful if there's a token in the response */
-        if (res && res.token) {
+        if (res && res.token && (res.user.type=='ADMIN')) {
           /* store username and token in local storage to keep user logged in between page refreshes*/
           localStorage.setItem('currentUser', JSON.stringify({username: username, token: res.token, user: res.user}));
         }

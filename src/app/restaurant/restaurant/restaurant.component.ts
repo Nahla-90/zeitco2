@@ -39,7 +39,7 @@ export class RestaurantComponent {
   public filters = {
     area: '',
     noOil: '',
-    searchText:''
+    searchText: ''
   };
 
   public restaurantService: RestaurantService = new RestaurantService(this.httpClient, this.formBuilder);
@@ -67,6 +67,10 @@ export class RestaurantComponent {
             this.status = 'APPROVED';
           } else if (qParams.status === 'registered') {
             this.status = 'RESTURANT-ACCOUNT';
+          } else if (qParams.status === 'uncommited') {
+            this.status = 'uncommitted';
+          } else if (qParams.status === 'declined') {
+            this.status = 'decline';
           }
         } else {
           this.status = 'APPROVED';
@@ -85,8 +89,14 @@ export class RestaurantComponent {
   public load() {
     let params = new HttpParams()
       .set('page', String((this.restaurantTable.offset / this.restaurantTable.limit) + 1))
-      .set('status', this.status)
       .set('orderByArea', String(true));
+
+    if (this.status === 'decline' || this.status === 'uncommitted') {
+      params = params.set(this.status, 'true');
+    } else {
+      params = params.set('status', this.status);
+    }
+
 
     if (this.status === 'PURCHASING-ACCOUNT') {
       params = params.set('agreement', 'NON-AGREEMENT');
@@ -200,6 +210,11 @@ export class RestaurantComponent {
   }
 
   public assignPurchaser(rowId) {
+    this.displayModal(rowId);
+    this.modal.type = 'assignPurchaser';
+  }
+
+  public reassignPurchaser(rowId) {
     this.displayModal(rowId);
     this.modal.type = 'assignPurchaser';
   }

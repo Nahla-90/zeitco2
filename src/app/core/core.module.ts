@@ -28,7 +28,9 @@ export var adminLteConf = {
 
           ]
         },
-        {label: 'Registered Outlets', route: '/outlets/registered'}
+        {label: 'Registered Outlets', route: '/outlets/registered'},
+        {label: 'Uncommited Outlets', route: '/outlets/uncommited'},
+        {label: 'Declined Outlets', route: '/outlets/declined'},
 
       ]
     },

@@ -12,7 +12,7 @@
         <div class="p-fluid p-formgrid p-grid">
           <div class="col-md-4">
             <label>Restaurant</label>
-            <select class="form-control" formControlName="restaurant">
+            <select class="form-control" formControlName="restaurant" (change)="calculateExpectedPrice()">
               <option value="">Select</option>
               <option *ngFor="let restaurant of restaurants; index as i"
                       value="{{restaurant.id}}">{{restaurant.restaurantName}}
@@ -28,7 +28,7 @@
           </div>
           <div class="col-md-4">
             <label for="qty">Order Qty KG</label>
-            <input id="qty" type="text" class="form-control" formControlName="qty">
+            <input id="qty" type="text" class="form-control" formControlName="qty" (change)="calculateExpectedPrice()">
             <span class="error"><small
               [hidden]="orderForm.controls.qty.valid || orderForm.controls.qty.untouched"
               class="text-danger">
@@ -68,6 +68,9 @@
       </div>
       <div class="col-md-6 form-group pull-right">
         <input type="submit" class="btn btn-primary pull-right" [value]="!loading?'Save':'Loading...'"
+               [disabled]="loading"/>
+
+        <input type="button" (click)="onSubmit(true)" class="btn btn-primary pull-right" [value]="!loading?'Save And Submit':'Loading...'"
                [disabled]="loading"/>
       </div>
     </div>

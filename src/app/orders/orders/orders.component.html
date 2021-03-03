@@ -34,8 +34,8 @@
           <th pResizableColumn>Qty</th>
           <th pResizableColumn>Price For Kg
           </th>
-          <th pResizableColumn>Problem
-          </th>
+          <th pResizableColumn>Problem</th>
+          <th pResizableColumn *ngIf="this.status == 'ASSIGNED'">Driver</th>
           <th pResizableColumn>Date
           </th>
           <th pResizableColumn class="w-270">Action</th>
@@ -45,13 +45,14 @@
       <ng-template pTemplate="body" let-order>
         <tr>
           <td class="ui-resizable-column">{{ order.id }}</td>
-          <td>{{order.restaurant.title}}</td>
+          <td>{{order.restaurant.restaurantName}}</td>
           <td>{{order.average}}</td>
           <td>{{order.priceForKg}}</td>
           <td>
             <i *ngIf="order.problem" class="sign fa fa-check"></i>
             <i *ngIf="!order.problem" class="sign fa fa-times"></i>
            </td>
+          <td *ngIf="this.status == 'ASSIGNED'">{{order.driver.username}}</td>
           <td>{{order.date}}</td>
 
           <td class="ui-resizable-column" >

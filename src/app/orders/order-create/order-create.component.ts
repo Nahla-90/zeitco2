@@ -16,7 +16,7 @@ import {Observable} from 'rxjs';
   templateUrl: './order-create.component.html',
   styleUrls: ['./order-create.component.scss']
 })
-export class OrderCreateComponent{
+export class OrderCreateComponent implements OnInit{
   public loading = false;
   public formMsg = '';
   public class = '';
@@ -25,7 +25,7 @@ export class OrderCreateComponent{
   public user;
   //private socket: any;
   // @ts-ignore
-  socket: SocketIOClient.Socket;
+  socket: SocketIOClient.Socket = io(environment.serverUrl+'/order', {query: `id=49`, transports: ['websocket', 'xhr-polling']});
 
   public orderForm: FormGroup = this.formBuilder.group({
     restaurant: ['', [Validators.required]],
@@ -40,8 +40,15 @@ export class OrderCreateComponent{
     this.loadRestaurants();
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     // @ts-ignore
-    this.socket = io(environment.serverUrl+'/order', {query: `id=49`, transports: ['websocket', 'xhr-polling']});
+  //  this.socket = io(environment.serverUrl+'/order', {query: `id=49`, transports: ['websocket', 'xhr-polling']});
 
+
+  }
+
+  ngOnInit(){
+    this.socket.on('hi', (data) => {
+      console.log("recieved hi  ", data);
+    });
   }
   /* When Form submitted*/
   onSubmit() {
@@ -56,7 +63,9 @@ export class OrderCreateComponent{
         branch: '0'
       };
 
-      this.socket.emit('newOrder', params);
+      this.socket.emit('newOrder', params,function (data) {
+        console.log(data);
+      });
 
       this.formMsg = 'order created successfuly';
       this.class = 'success';
@@ -94,6 +103,18 @@ export class OrderCreateComponent{
         subscriber.next(data);
       });
     }));
+  }
+
+
+  calculateExpectedPrice() {
+    const qty = this.orderForm.controls['qty'].value;
+    const restaurantId = this.orderForm.controls['restaurant'].value;
+
+    this.restaurants.forEach(restaurant => {
+      if (restaurant.id == restaurantId) {
+        this.orderForm.controls['price'].setValue(restaurant.price * qty);
+      }
+    });
   }
 }
 
